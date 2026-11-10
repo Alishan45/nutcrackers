@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { handleContactRequest } from './handlers/contact';
+import { handleAdminReplyRequest } from './handlers/reply';
 import { handleGeminiRequest } from './handlers/gemini';
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.get('/api/health', (req, res) => {
 
 // API Routes
 app.post('/api/contact', handleContactRequest);
+app.post('/api/reply', handleAdminReplyRequest);
 app.post('/api/gemini', handleGeminiRequest);
 
 // Serve frontend static files from dist/ if built

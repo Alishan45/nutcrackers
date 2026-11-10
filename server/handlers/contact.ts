@@ -1,4 +1,9 @@
 import nodemailer from 'nodemailer';
+import { 
+  generateAdminNotificationEmail, 
+  generateClientConfirmationEmail,
+  EmailPayload 
+} from '../email-templates';
 
 interface ContactRequestBody {
   fullName: string;
@@ -23,6 +28,18 @@ const ALLOWED_SERVICES = [
   'Data Analysis',
 ];
 
+/**
+ * Generates an inquiry reference ID in the format: NC-YYMMDD-XXXX
+ */
+function generateReferenceId(): string {
+  const now = new Date();
+  const year = now.getUTCFullYear().toString().slice(2);
+  const month = (now.getUTCMonth() + 1).toString().padStart(2, '0');
+  const day = now.getUTCDate().toString().padStart(2, '0');
+  const randomChars = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `NC-${year}${month}${day}-${randomChars}`;
+}
+
 export async function handleContactRequest(req: any, res: any) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,13 +54,14 @@ export async function handleContactRequest(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
   }
 
-  const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+  const clientIp = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').toString();
 
-  // 1. Rate limiting check (max 5 submissions per 10 minutes)
+  // 1. Rate limiting check (max 5 submissions per 10 minutes in production)
+  const isLocalhost = clientIp.includes('127.0.0.1') || clientIp.includes('::1') || clientIp === 'unknown';
   const now = Date.now();
   const windowMs = 10 * 60 * 1000;
   const timestamps = (rateLimitMap.get(clientIp) || []).filter(t => now - t < windowMs);
-  if (timestamps.length >= 5) {
+  if (!isLocalhost && timestamps.length >= 5) {
     return res.status(429).json({ 
       error: 'Too many inquiries sent from this address. Please wait a few minutes or reach out directly on WhatsApp (+92 312 5355078).' 
     });
@@ -61,6 +79,7 @@ export async function handleContactRequest(req: any, res: any) {
 
   // 2. Honeypot check (spam bots filling hidden fields)
   if (honeypot) {
+    console.warn(`[Contact API] Honeypot triggered from IP: ${clientIp}`);
     return res.status(200).json({ success: true, message: 'Inquiry received.' });
   }
 
@@ -91,6 +110,7 @@ export async function handleContactRequest(req: any, res: any) {
   const cleanService = serviceRequired;
   const cleanBudget = projectBudget.trim().slice(0, 50);
   const cleanDescription = description.trim().slice(0, 4000).replace(/[<>]/g, '');
+  const refId = generateReferenceId();
 
   // 4. Configure Nodemailer Transporter
   const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
@@ -102,7 +122,7 @@ export async function handleContactRequest(req: any, res: any) {
   if (!smtpUser || !smtpPass) {
     console.error('SMTP credentials missing on server.');
     return res.status(500).json({
-      error: 'Server email configuration is missing. Please contact via WhatsApp directly.'
+      error: 'Server email configuration is missing. Please contact via WhatsApp (+92 312 5355078) directly.'
     });
   }
 
@@ -116,84 +136,53 @@ export async function handleContactRequest(req: any, res: any) {
     },
   });
 
-  // 5. Professional Nutcrackers Branded HTML Email Template
-  const htmlContent = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #090A0F; color: #F3F4F6; margin: 0; padding: 24px; }
-      .container { max-width: 620px; margin: 0 auto; background: #0D0E16; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; }
-      .header { padding: 32px; background: linear-gradient(135deg, #12131F 0%, #1A132F 100%); border-bottom: 1px solid rgba(255,255,255,0.08); text-align: center; }
-      .brand-title { color: #FFFFFF; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin: 0; }
-      .brand-sub { color: #F59E0B; font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
-      .badge { display: inline-block; padding: 6px 14px; background: rgba(45, 212, 191, 0.15); border: 1px solid rgba(45, 212, 191, 0.4); color: #2DD4BF; border-radius: 999px; font-size: 12px; font-weight: 600; margin-top: 14px; }
-      .body-content { padding: 32px; }
-      .field-row { margin-bottom: 20px; }
-      .field-label { color: #9CA3AF; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-family: monospace; margin-bottom: 4px; }
-      .field-value { color: #FFFFFF; font-size: 15px; font-weight: 600; }
-      .desc-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 18px; border-radius: 14px; color: #E5E7EB; line-height: 1.6; font-size: 14px; white-space: pre-wrap; }
-      .footer { padding: 20px 32px; background: #07080D; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 12px; color: #6B7280; font-family: monospace; }
-      .cta-btn { display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #A855F7, #6366F1); color: #FFFFFF; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 13px; margin-top: 16px; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1 class="brand-title">Nutcrackers</h1>
-        <div class="brand-sub">AI & Digital Solutions Agency</div>
-        <div class="badge">⚡ New Lead Received</div>
-      </div>
-      <div class="body-content">
-        <div class="field-row">
-          <div class="field-label">Client Name</div>
-          <div class="field-value">${cleanName}</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Email Address</div>
-          <div class="field-value"><a href="mailto:${cleanEmail}" style="color: #A855F7; text-decoration: none;">${cleanEmail}</a></div>
-        </div>
-        ${cleanCompany ? `
-        <div class="field-row">
-          <div class="field-label">Company / Organization</div>
-          <div class="field-value">${cleanCompany}</div>
-        </div>` : ''}
-        <div class="field-row">
-          <div class="field-label">Requested Service</div>
-          <div class="field-value" style="color: #2DD4BF;">${cleanService}</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Estimated Budget Bracket</div>
-          <div class="field-value" style="color: #FBBF24;">${cleanBudget}</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Project Requirements & Scope</div>
-          <div class="desc-box">${cleanDescription}</div>
-        </div>
-        <div style="text-align: center;">
-          <a href="mailto:${cleanEmail}?subject=Re:%20Nutcrackers%20Project%20Inquiry%20-%20${encodeURIComponent(cleanService)}" class="cta-btn">
-            Reply Directly to Client →
-          </a>
-        </div>
-      </div>
-      <div class="footer">
-        Nutcrackers Agency Lead Pipeline · Received on ${new Date().toUTCString()} · IP: ${clientIp}
-      </div>
-    </div>
-  </body>
-  </html>
-  `;
+  const emailData: EmailPayload = {
+    refId,
+    name: cleanName,
+    email: cleanEmail,
+    company: cleanCompany,
+    service: cleanService,
+    budget: cleanBudget,
+    description: cleanDescription,
+    clientIp,
+    timestamp: new Date().toUTCString(),
+  };
+
+  const adminEmail = generateAdminNotificationEmail(emailData);
+  const clientConfirmation = generateClientConfirmationEmail(emailData);
 
   try {
-    const info = await transporter.sendMail({
+    // 5. Send Notification Email to Nutcrackers Administrator (alishan.cs01@gmail.com)
+    // IMPORTANT: Reply-To is set to client's email so clicking Reply replies directly to client.
+    const adminMailPromise = transporter.sendMail({
       from: `"Nutcrackers Inquiries" <${smtpUser}>`,
       to: recipientEmail,
       replyTo: cleanEmail,
-      subject: `New Project Inquiry: ${cleanName} (${cleanService}) — Nutcrackers`,
-      text: `New Inquiry for Nutcrackers\n\nName: ${cleanName}\nEmail: ${cleanEmail}\nCompany: ${cleanCompany || 'N/A'}\nService: ${cleanService}\nBudget: ${cleanBudget}\n\nDescription:\n${cleanDescription}\n\nSent from: ${clientIp}`,
-      html: htmlContent,
+      subject: adminEmail.subject,
+      text: adminEmail.text,
+      html: adminEmail.html,
+      headers: {
+        'X-Inquiry-Ref': refId,
+        'X-Client-Email': cleanEmail,
+      }
     });
+
+    // 6. Send Confirmation Auto-responder to Prospective Client
+    // SENDER is authenticated admin email, Reply-To is admin email
+    const clientMailPromise = transporter.sendMail({
+      from: `"Nutcrackers" <${smtpUser}>`,
+      to: cleanEmail,
+      replyTo: recipientEmail,
+      subject: clientConfirmation.subject,
+      text: clientConfirmation.text,
+      html: clientConfirmation.html,
+      headers: {
+        'X-Inquiry-Ref': refId,
+      }
+    });
+
+    // Await both dispatches
+    const [adminInfo, clientInfo] = await Promise.all([adminMailPromise, clientMailPromise]);
 
     // Record rate-limit timestamp
     timestamps.push(now);
@@ -201,13 +190,15 @@ export async function handleContactRequest(req: any, res: any) {
 
     return res.status(200).json({
       success: true,
-      message: 'Your inquiry has been successfully delivered to Nutcrackers. We will review your project scope and follow up promptly.',
-      messageId: info.messageId,
+      message: 'Your inquiry has been successfully delivered to Nutcrackers. A confirmation receipt has been sent to your email.',
+      referenceId: refId,
+      adminMessageId: adminInfo.messageId,
+      clientMessageId: clientInfo.messageId,
     });
   } catch (err: any) {
-    console.error('Nodemailer SMTP delivery error:', err);
+    console.error('Nodemailer SMTP two-way delivery error:', err);
     return res.status(500).json({
-      error: 'Email dispatch encountered an issue. Please reach out to us on WhatsApp (+92 312 5355078) for instant support.',
+      error: 'Email dispatch encountered an issue. Please reach out to us on WhatsApp (+92 312 5355078) for instant assistance.',
       technicalDetails: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
   }

@@ -7,7 +7,9 @@ import {
   AlertCircle, 
   Sparkles,
   Loader2,
-  Mail
+  Mail,
+  Copy,
+  Check
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ScrambleText } from '../common/ScrambleText';
@@ -30,6 +32,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submittedRefId, setSubmittedRefId] = useState<string | null>(null);
+  const [copiedRef, setCopiedRef] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
 
   const servicesList = [
@@ -94,6 +98,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
 
       setIsSubmitting(false);
       setSubmitSuccess(true);
+      if (data.referenceId) {
+        setSubmittedRefId(data.referenceId);
+      }
 
       // Trigger celebratory confetti
       confetti({
@@ -241,23 +248,60 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
             <div className="rounded-3xl bg-[#0D0E16]/90 border border-white/[0.08] p-7 sm:p-10 shadow-2xl relative">
               
               {submitSuccess ? (
-                <div className="py-12 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
+                <div className="py-10 text-center space-y-5 animate-in fade-in zoom-in-95 duration-300">
                   <div className="w-16 h-16 rounded-full bg-brand-teal/20 border border-brand-teal/40 flex items-center justify-center text-brand-teal mx-auto shadow-xl shadow-brand-teal/20">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white">Inquiry Successfully Dispatched!</h3>
-                  
-                  <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-white font-semibold">{formData.fullName}</span>. 
-                    Your project inquiry has been securely delivered to <strong className="text-brand-teal">alishan.cs01@gmail.com</strong>. 
-                    Our engineering team will review your specifications and reply via email promptly.
-                  </p>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Inquiry Dispatched & Confirmed</h3>
+                    <p className="text-xs font-mono text-brand-teal mt-1">Two-Way Email Thread Initialized</p>
+                  </div>
 
-                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  {/* Reference ID Pill with Copy */}
+                  {submittedRefId && (
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-200">
+                      <span className="text-xs text-gray-400 font-mono">Reference:</span>
+                      <span className="font-mono font-bold text-sm text-purple-300">{submittedRefId}</span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(submittedRefId);
+                          setCopiedRef(true);
+                          setTimeout(() => setCopiedRef(false), 2000);
+                        }}
+                        className="ml-1 p-1 hover:text-white transition-colors cursor-pointer"
+                        title="Copy Reference ID"
+                      >
+                        {copiedRef ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-purple-400" />}
+                      </button>
+                    </div>
+                  )}
+                  
+                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] text-left max-w-lg mx-auto text-xs space-y-2.5">
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-brand-teal shrink-0 mt-0.5" />
+                      <span className="text-gray-300 leading-relaxed">
+                        Inquiry delivered to engineering lead at <strong className="text-white">alishan.cs01@gmail.com</strong>.
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                      <span className="text-gray-300 leading-relaxed">
+                        Confirmation receipt sent to your email <strong className="text-white">{formData.email}</strong>.
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-gray-300 leading-relaxed">
+                        Our team will review your specifications and reply directly using your email address. You can reply directly to that email thread at any time to share additional briefs.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <button
                       onClick={openWhatsAppFallback}
-                      className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-bold text-black bg-brand-teal hover:bg-teal-300 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-teal/20"
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-bold text-black bg-brand-teal hover:bg-teal-300 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-teal/20 cursor-pointer"
                     >
                       <MessageSquare className="w-4 h-4 fill-current" />
                       <span>Also Open in WhatsApp</span>
@@ -266,6 +310,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
                     <button
                       onClick={() => {
                         setSubmitSuccess(false);
+                        setSubmittedRefId(null);
                         setFormData({
                           fullName: '',
                           email: '',
@@ -419,13 +464,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
                     {errors.description && <p className="text-[11px] text-red-400 mt-1">{errors.description}</p>}
                   </div>
 
-                  {/* Gmail SMTP Dispatch Status Indicator */}
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between text-[11px] font-mono text-gray-400">
-                    <span className="flex items-center gap-1.5">
+                  {/* Two-Way Email Communication Guarantee */}
+                  <div className="p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] font-mono text-gray-400">
+                    <span className="flex items-center gap-1.5 text-purple-300">
                       <Sparkles className="w-3.5 h-3.5 text-brand-teal" />
-                      Gmail SMTP Delivery Activated
+                      Two-Way Gmail SMTP Active
                     </span>
-                    <span className="text-brand-teal">Direct to alishan.cs01@gmail.com</span>
+                    <span className="text-gray-400">
+                      Auto-Receipt + Direct Reply Workflow
+                    </span>
                   </div>
 
                   {/* Submit Button */}
