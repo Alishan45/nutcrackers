@@ -26,7 +26,18 @@ export const VideoShowcase: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [hasStarted, setHasStarted] = useState(false);
+  const [videoSrc, setVideoSrc] = useState('/assets/intro-video.mp4');
   const controlsTimeout = useRef<any>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+      setVideoSrc(isMobile ? '/assets/intro-video-mobile.mp4' : '/assets/intro-video.mp4');
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -153,10 +164,10 @@ export const VideoShowcase: React.FC = () => {
           className="relative rounded-2xl sm:rounded-3xl p-[1px] bg-gradient-to-b from-purple-500/30 via-white/10 to-transparent shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] overflow-hidden group"
         >
           <div className="relative rounded-2xl sm:rounded-3xl bg-[#090A0F] overflow-hidden min-h-[310px] xs:min-h-[360px] sm:min-h-[420px] md:min-h-[480px] lg:min-h-[540px] aspect-[4/3.2] xs:aspect-[14/10] sm:aspect-video flex items-center justify-center">
-            {/* HTML5 Native Video Tag with FastStart WebP Poster */}
+            {/* HTML5 Native Video Tag with FastStart WebP Poster & Adaptive Mobile Source */}
             <video
               ref={videoRef}
-              src="/assets/intro-video.mp4"
+              src={videoSrc}
               poster="/assets/intro-video-poster.webp"
               playsInline
               preload="metadata"
@@ -165,7 +176,10 @@ export const VideoShowcase: React.FC = () => {
               onEnded={() => setIsPlaying(false)}
               onClick={togglePlay}
               className="w-full h-full object-cover sm:object-contain cursor-pointer bg-black"
-            />
+            >
+              <source src="/assets/intro-video-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+              <source src="/assets/intro-video.mp4" type="video/mp4" />
+            </video>
 
             {/* Poster / Play Overlay before start */}
             {!hasStarted && (
