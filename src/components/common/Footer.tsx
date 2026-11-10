@@ -41,6 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
     { name: 'Interactive AI Demo', href: '#demo' },
     { name: 'Our Work', href: '#work' },
     { name: 'About Nutcrackers', href: '#about' },
+    { name: 'Leadership Team', href: '#team' },
     { name: 'Contact Us', href: '#contact' },
   ];
 

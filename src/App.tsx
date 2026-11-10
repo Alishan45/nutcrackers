@@ -10,6 +10,7 @@ import { WhyNutcrackers } from './components/home/WhyNutcrackers';
 import { PortfolioSection } from './components/home/PortfolioSection';
 import { ProcessSection } from './components/home/ProcessSection';
 import { TestimonialsSection } from './components/home/TestimonialsSection';
+import { LeadershipSection } from './components/home/LeadershipSection';
 import { CTASection } from './components/home/CTASection';
 import { ContactSection } from './components/home/ContactSection';
 import { Footer } from './components/common/Footer';
@@ -76,6 +77,9 @@ export function App() {
 
         {/* Authentic Client Standards & Trust Guarantees */}
         <TestimonialsSection />
+
+        {/* Executive Leadership Team — CEO & Co-Founder */}
+        <LeadershipSection />
 
         {/* High-Impact Final Call to Action */}
         <CTASection
