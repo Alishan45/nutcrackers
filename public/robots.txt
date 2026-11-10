@@ -1,4 +1,9 @@
+# Nutcrackers - Modern AI & Digital Solutions Agency
+# https://nutcrackers.vercel.app
+
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://alishanai.vercel.app/sitemap.xml
+# Sitemaps
+Sitemap: https://nutcrackers.vercel.app/sitemap.xml
