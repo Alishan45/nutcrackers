@@ -240,7 +240,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
                     <span className="text-[10px] font-mono text-gray-300">
-                      Nutcrackers Brand Card & WhatsApp QR
+                      Nutcrackers Official Card & Website QR (nutcrackers.vercel.app)
                     </span>
                   </div>
                 </div>
