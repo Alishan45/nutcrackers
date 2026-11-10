@@ -84905,7 +84905,7 @@ app.post("/api/contact", handleContactRequest);
 app.post("/api/reply", handleAdminReplyRequest);
 app.post("/api/gemini", handleGeminiRequest);
 
-// api/index.ts
+// server/api-handler.ts
 function handler(req, res) {
   if (req.url && !req.url.startsWith("/api")) {
     req.url = "/api" + req.url;
