@@ -206,8 +206,13 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
 
       {/* Legal Modals */}
       {modalType && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setModalType(null);
+          }}
+        >
+          <div className="relative w-full max-w-lg bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl my-auto">
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 {modalType === 'privacy' ? <Shield className="w-5 h-5 text-brand-teal" /> : <FileText className="w-5 h-5 text-purple-400" />}
@@ -215,7 +220,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
               </h3>
               <button
                 onClick={() => setModalType(null)}
-                className="p-1 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                className="p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.15] border border-white/15 text-gray-300 hover:text-white transition-all focus:outline-none cursor-pointer"
+                title="Close window (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>

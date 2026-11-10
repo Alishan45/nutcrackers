@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, CheckCircle2, ArrowRight, Sparkles, MessageSquare } from 'lucide-react';
 import { ServiceData } from '../home/ServicesBento';
 
@@ -13,6 +13,20 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
   onClose,
   onSelectServiceForQuote,
 }) => {
+  useEffect(() => {
+    if (!service) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [service, onClose]);
+
   if (!service) return null;
 
   const Icon = service.icon;
@@ -27,8 +41,13 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col justify-between">
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative w-full max-w-2xl bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[88vh] flex flex-col justify-between my-auto">
         
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -51,8 +70,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors focus:outline-none"
+            className="p-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.15] border border-white/15 text-gray-300 hover:text-white transition-all focus:outline-none cursor-pointer shadow-lg hover:scale-105 active:scale-95 shrink-0 ml-3"
             aria-label="Close service modal"
+            title="Close window (Esc)"
           >
             <X className="w-5 h-5" />
           </button>

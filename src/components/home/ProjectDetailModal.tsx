@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   ExternalLink, 
@@ -32,6 +32,20 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   onInquireSimilar,
 }) => {
   const [deviceView, setDeviceView] = useState<'desktop' | 'mobile'>('desktop');
+  
+  // Close on Escape & Lock Body Scroll while modal is open
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
   
   // Interactive mini-states for concept projects
   const [nexusInput, setNexusInput] = useState('');
@@ -88,11 +102,16 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-4xl bg-[#0B0D15] rounded-3xl border border-white/15 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col justify-between text-left">
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative w-full max-w-4xl bg-[#0B0D15] rounded-3xl border border-white/15 shadow-2xl overflow-hidden max-h-[88vh] flex flex-col justify-between text-left my-auto">
         
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-[#0D0F18]/90">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 bg-[#0D0F18]/95 sticky top-0 z-20">
           <div className="flex items-center gap-3">
             <div className={`p-2 sm:p-2.5 rounded-xl border ${
               project.isRealClient 
@@ -122,8 +141,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
-            aria-label="Close modal"
+            className="p-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.15] border border-white/15 text-gray-300 hover:text-white transition-all focus:outline-none cursor-pointer shadow-lg hover:scale-105 active:scale-95 shrink-0 ml-3"
+            aria-label="Close modal window"
+            title="Close window (Esc)"
           >
             <X className="w-5 h-5" />
           </button>

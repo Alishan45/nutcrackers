@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Send, 
@@ -40,6 +40,20 @@ export const AdminReplyModal: React.FC<AdminReplyModalProps> = ({
 
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string; messageId?: string } | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -102,8 +116,13 @@ export const AdminReplyModal: React.FC<AdminReplyModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative w-full max-w-2xl bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl max-h-[88vh] overflow-y-auto my-auto">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
@@ -118,7 +137,9 @@ export const AdminReplyModal: React.FC<AdminReplyModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.15] border border-white/15 text-gray-300 hover:text-white transition-all focus:outline-none cursor-pointer shadow-lg hover:scale-105 active:scale-95 shrink-0"
+            aria-label="Close admin modal"
+            title="Close window (Esc)"
           >
             <X className="w-5 h-5" />
           </button>
