@@ -63,15 +63,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
       aria-hidden={isHidden ? 'true' : undefined}
     >
       <nav 
-        className={`w-full max-w-7xl mx-auto flex items-center justify-between px-5 py-3 sm:py-3.5 rounded-full transition-all duration-300 border ${
+        className={`w-full max-w-7xl mx-auto flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3.5 rounded-full transition-all duration-300 border ${
           scrolled 
-            ? 'bg-[#090A0F]/85 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
-            : 'bg-[#090A0F]/50 backdrop-blur-md border-white/[0.06]'
+            ? 'bg-[#090A0F]/90 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
+            : 'bg-[#090A0F]/60 backdrop-blur-md border-white/[0.08]'
         }`}
         aria-label="Main Navigation"
       >
         {/* Brand Logo */}
-        <a href="#home" className="focus:outline-none" aria-label="Nutcrackers Home">
+        <a href="#home" className="focus:outline-none shrink-0" aria-label="Nutcrackers Home">
           <NutcrackersLogo size="sm" />
         </a>
 
@@ -98,13 +98,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
           })}
         </div>
 
-        {/* Right CTA / Action Area */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right Action Area - Unified across Mobile, Tablet & Desktop */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Direct WhatsApp Callout - Tablet & Desktop */}
           <a
             href="https://wa.me/923125355078?text=Hello%20Nutcrackers%2C%20I%20am%20interested%20in%20your%20services."
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-300 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 rounded-full transition-all duration-200"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-medium text-gray-300 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 rounded-full transition-all duration-200"
             title="Chat directly on WhatsApp"
           >
             <MessageSquare className="w-3.5 h-3.5 text-brand-teal" />
@@ -112,23 +113,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
             <span className="md:hidden">WhatsApp</span>
           </a>
 
+          {/* Quick Quote Action Button - Optimized for Mobile & Desktop */}
           <button
             onClick={onOpenQuote}
-            className="group relative inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-full overflow-hidden text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] hover:bg-right transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_28px_rgba(168,85,247,0.55)] border border-purple-400/30"
+            className="group relative inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold rounded-full overflow-hidden text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] hover:bg-right transition-all duration-300 shadow-[0_0_16px_rgba(168,85,247,0.3)] hover:shadow-[0_0_24px_rgba(168,85,247,0.5)] border border-purple-400/30 cursor-pointer"
           >
-            <span>Get a Quote</span>
-            <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span>Quote</span>
+            <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
-        </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile & Tablet Hamburger Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-gray-300 hover:text-white bg-white/[0.04] border border-white/10 rounded-full focus:outline-none"
+            className="p-1.5 sm:p-2 text-gray-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-full focus:outline-none lg:hidden cursor-pointer flex items-center justify-center transition-colors"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-purple-300" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>
