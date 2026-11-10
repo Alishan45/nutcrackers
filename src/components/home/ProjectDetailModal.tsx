@@ -19,6 +19,7 @@ import {
   Database
 } from 'lucide-react';
 import { PortfolioProject, ProjectMetric } from '../../types/portfolio';
+import { FormattedAIResponse } from '../common/FormattedAIResponse';
 
 interface ProjectDetailModalProps {
   project: PortfolioProject;
@@ -51,7 +52,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   const [nexusInput, setNexusInput] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [nexusMessages, setNexusMessages] = useState([
-    { role: 'assistant', text: `Hello! I am ${project.title}, powered by Google Gemini. How can I assist your business inquiry today?` }
+    { role: 'assistant', text: `Hello! I am ${project.title}, powered by the Nutcrackers AI Engine. How can I assist your business inquiry today?` }
   ]);
 
   const handleNexusSend = async () => {
@@ -259,29 +260,33 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             </div>
           </div>
 
-          {/* Interactive Simulation Sandbox powered by Gemini (if AI Agent concept) */}
+          {/* Interactive Simulation Sandbox powered by Nutcrackers AI Engine (if AI Agent concept) */}
           {project.id === 'nexus-ai-assistant' && (
             <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-3">
               <div className="flex items-center justify-between text-xs font-mono text-gray-400">
-                <span className="flex items-center gap-1.5 text-purple-300">
-                  <Bot className="w-3.5 h-3.5" /> Live Gemini Agent Sandbox
+                <span className="flex items-center gap-1.5 text-purple-300 font-bold">
+                  <Bot className="w-3.5 h-3.5" /> Live Autonomous Agent Sandbox
                 </span>
                 <span className="text-[10px] bg-purple-950/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">
-                  Connected to Google GenAI
+                  Nutcrackers Neural Engine
                 </span>
               </div>
-              <div className="space-y-2 max-h-40 overflow-y-auto">
+              <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
                 {nexusMessages.map((msg, i) => (
-                  <div key={i} className={`text-xs p-2.5 rounded-xl max-w-[85%] ${
-                    msg.role === 'user' ? 'ml-auto bg-purple-600 text-white' : 'bg-white/10 text-gray-200'
+                  <div key={i} className={`text-xs p-3 rounded-2xl max-w-[90%] leading-relaxed ${
+                    msg.role === 'user' ? 'ml-auto bg-purple-600 text-white font-medium' : 'bg-white/[0.06] border border-white/10 text-gray-200 shadow-md'
                   }`}>
-                    {msg.text}
+                    {msg.role === 'user' ? (
+                      <p>{msg.text}</p>
+                    ) : (
+                      <FormattedAIResponse content={msg.text} isCompact />
+                    )}
                   </div>
                 ))}
                 {isAiLoading && (
                   <div className="flex items-center gap-2 text-xs text-gray-300 bg-white/[0.05] p-2 rounded-xl w-max">
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-teal" />
-                    <span>Gemini is generating response...</span>
+                    <span className="font-mono text-[11px]">AI Agent is synthesizing response...</span>
                   </div>
                 )}
               </div>

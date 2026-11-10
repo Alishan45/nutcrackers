@@ -17,17 +17,18 @@ import {
   Activity
 } from 'lucide-react';
 import { ScrambleText } from '../common/ScrambleText';
+import { FormattedAIResponse } from '../common/FormattedAIResponse';
 
 export const InteractiveAIDemo: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'agent' | 'automation' | 'datascience' | 'dataanalysis'>('agent');
 
-  // State for AI Agent chat simulation powered by Gemini API
+  // State for AI Agent chat simulation
   const [chatMessages, setChatMessages] = useState<Array<{ sender: 'user' | 'agent'; text: string; time: string; model?: string }>>([
     {
       sender: 'agent',
-      text: 'Hello! I am Nutcrackers AI Consultant, powered by Google Gemini. How can I assist your business with custom web development, video production, AI agents, or data intelligence today?',
+      text: 'Hello! I am the Nutcrackers AI Consultant, powered by the Nutcrackers Neural Engine. How can I assist your business with custom web development, video production, AI agents, or data intelligence today?',
       time: '12:00 PM',
-      model: 'Gemini AI'
+      model: 'Nutcrackers AI'
     }
   ]);
   const [userInput, setUserInput] = useState('');
@@ -70,7 +71,7 @@ export const InteractiveAIDemo: React.FC = () => {
             sender: 'agent', 
             text: data.response, 
             time: 'Just now',
-            model: data.model || 'Gemini 3.5 Flash'
+            model: data.model || 'Nutcrackers Neural Engine'
           }
         ]);
       } else {
@@ -133,7 +134,7 @@ export const InteractiveAIDemo: React.FC = () => {
     } catch (e) {
       clearInterval(stepInterval);
       setCurrentStep(4);
-      setAutomationResult('Trigger → Webhook receives payload → Gemini parses & validates schema → Ingestion into PostgreSQL database + Slack notification.');
+      setAutomationResult('**1. Inbound Webhook Reception** Trigger event captures raw payload from client source.\n\n**2. AI Schema Transformation** Nutcrackers neural parsing engine sanitizes and maps payload to typed database schema.\n\n**3. Multi-Channel Synchronization** Record committed to PostgreSQL database with real-time Slack and CRM notification hooks.');
     } finally {
       setIsGeneratingAutomation(false);
     }
@@ -161,7 +162,7 @@ export const InteractiveAIDemo: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md mb-4">
             <Cpu className="w-3.5 h-3.5 text-brand-teal" />
             <span className="text-xs font-mono text-gray-300 uppercase tracking-wider">
-              Gemini AI-Powered Demonstrations
+              Autonomous AI Demonstrations
             </span>
           </div>
 
@@ -172,7 +173,7 @@ export const InteractiveAIDemo: React.FC = () => {
             </span>
           </h2>
           <p className="mt-4 text-gray-400 text-sm sm:text-base leading-relaxed">
-            Test our real Gemini-powered conversational agent, generate bespoke operational workflows, 
+            Test our live autonomous conversational agent, generate bespoke operational workflows, 
             and interact with predictive machine learning models in real time.
           </p>
         </div>
@@ -180,7 +181,7 @@ export const InteractiveAIDemo: React.FC = () => {
         {/* Tab Buttons Container */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
           {[
-            { id: 'agent', label: '01 · Live Gemini AI Agent', icon: Bot, color: 'hover:border-purple-500/50' },
+            { id: 'agent', label: '01 · Live Nutcrackers AI Agent', icon: Bot, color: 'hover:border-purple-500/50' },
             { id: 'automation', label: '02 · AI Automation Pipeline', icon: Workflow, color: 'hover:border-indigo-500/50' },
             { id: 'datascience', label: '03 · Predictive ML Model', icon: BrainCircuit, color: 'hover:border-amber-500/50' },
             { id: 'dataanalysis', label: '04 · Executive BI Telemetry', icon: BarChart4, color: 'hover:border-emerald-500/50' },
@@ -212,24 +213,24 @@ export const InteractiveAIDemo: React.FC = () => {
             <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/[0.08] mb-6">
               <div className="flex items-center gap-2 text-xs font-mono text-gray-300">
                 <span className="w-2 h-2 rounded-full bg-brand-teal animate-pulse" />
-                <span>BACKEND: GOOGLE GEMINI API (LIVE ACTIVE CONNECTION)</span>
+                <span>ENGINE: NUTCRACKERS NEURAL ARCHITECTURE (LIVE ACTIVE CONNECTION)</span>
               </div>
               <span className="text-[10px] font-mono text-purple-300 bg-purple-950/40 px-2.5 py-1 rounded-full border border-purple-500/30">
-                Real-Time GenAI Engine
+                Proprietary AI Engine
               </span>
             </div>
 
-            {/* TAB 1: LIVE GEMINI AI AGENT */}
+            {/* TAB 1: LIVE NUTCRACKERS AI AGENT */}
             {activeTab === 'agent' && (
               <div className="flex flex-col h-full space-y-4">
                 <div className="text-left mb-1">
                   <h3 className="text-lg font-bold text-white flex items-center gap-2">
                     <Bot className="w-5 h-5 text-purple-400" />
-                    Live Nutcrackers AI Agent (Google Gemini)
+                    Live Nutcrackers AI Agent
                   </h3>
                   <p className="text-xs text-gray-400 mt-1">
                     Ask any question about our services, software architecture, video production, or automated pipelines. 
-                    Responses are generated live via Google GenAI.
+                    Responses are synthesized live by our real-time neural architecture.
                   </p>
                 </div>
 
@@ -248,20 +249,24 @@ export const InteractiveAIDemo: React.FC = () => {
                 </div>
 
                 {/* Chat Log Window */}
-                <div className="bg-[#07080D] rounded-2xl p-4 border border-white/[0.06] h-64 overflow-y-auto space-y-3 flex flex-col">
+                <div className="bg-[#07080D] rounded-2xl p-4 border border-white/[0.06] h-80 overflow-y-auto space-y-3 flex flex-col text-left">
                   {chatMessages.map((msg, i) => (
                     <div
                       key={i}
                       className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
                     >
                       <div
-                        className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-xs sm:text-sm leading-relaxed ${
+                        className={`max-w-[90%] rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed ${
                           msg.sender === 'user'
-                            ? 'bg-purple-600 text-white rounded-br-none'
-                            : 'bg-white/[0.06] border border-white/10 text-gray-200 rounded-bl-none'
+                            ? 'bg-purple-600 text-white rounded-br-none font-medium'
+                            : 'bg-white/[0.05] border border-white/10 text-gray-200 rounded-bl-none shadow-lg'
                         }`}
                       >
-                        {msg.text}
+                        {msg.sender === 'user' ? (
+                          <p>{msg.text}</p>
+                        ) : (
+                          <FormattedAIResponse content={msg.text} />
+                        )}
                       </div>
                       <div className="flex items-center gap-1.5 text-[9px] font-mono text-gray-500 mt-1 px-1">
                         <span>{msg.sender === 'user' ? 'You' : 'Nutcrackers AI'}</span>
@@ -274,7 +279,7 @@ export const InteractiveAIDemo: React.FC = () => {
                   {isAiLoading && (
                     <div className="flex items-center gap-2 text-xs text-gray-300 bg-white/[0.04] border border-white/10 px-3.5 py-2.5 rounded-2xl w-max">
                       <Loader2 className="w-3.5 h-3.5 text-brand-teal animate-spin" />
-                      <span className="font-mono text-[11px]">Google Gemini is synthesizing response...</span>
+                      <span className="font-mono text-[11px]">Nutcrackers AI is synthesizing response...</span>
                     </div>
                   )}
                 </div>
@@ -289,7 +294,7 @@ export const InteractiveAIDemo: React.FC = () => {
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
                     disabled={isAiLoading}
-                    placeholder="Ask Gemini anything about your upcoming project or Nutcrackers services..."
+                    placeholder="Ask our AI Consultant anything about your project scope or architecture..."
                     className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 disabled:opacity-50"
                   />
                   <button
@@ -297,7 +302,7 @@ export const InteractiveAIDemo: React.FC = () => {
                     disabled={isAiLoading || !userInput.trim()}
                     className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg shadow-purple-600/30 transition-all cursor-pointer disabled:opacity-50"
                   >
-                    <span>Ask Gemini</span>
+                    <span>Ask AI Assistant</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </form>
@@ -314,7 +319,7 @@ export const InteractiveAIDemo: React.FC = () => {
                       Intelligent Workflow Orchestrator
                     </h3>
                     <p className="text-xs text-gray-400 mt-1">
-                      Select a business event trigger. Gemini will architect an automated multi-step execution pipeline in real time.
+                      Select a business event trigger. Nutcrackers AI will architect an automated multi-step execution pipeline in real time.
                     </p>
                   </div>
 
@@ -353,8 +358,8 @@ export const InteractiveAIDemo: React.FC = () => {
                       <span className="text-[10px] font-mono text-purple-400">STAGE 02</span>
                       <CheckCircle className="w-4 h-4 text-brand-teal" />
                     </div>
-                    <div className="text-xs font-bold text-white">Gemini Transformation</div>
-                    <div className="text-[11px] text-gray-400 mt-1">LLM extracts JSON schema & scores business intent</div>
+                    <div className="text-xs font-bold text-white">Neural Transformation</div>
+                    <div className="text-[11px] text-gray-400 mt-1">AI extracts JSON schema & scores business intent</div>
                   </div>
 
                   {/* Step 3 */}
@@ -382,13 +387,19 @@ export const InteractiveAIDemo: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Gemini Output Box */}
+                {/* AI Formatted Output Box */}
                 {automationResult && (
-                  <div className="p-4 rounded-2xl bg-indigo-950/20 border border-indigo-500/30 text-xs text-gray-200 leading-relaxed font-mono">
-                    <div className="text-[10px] uppercase text-indigo-400 font-bold mb-1">
-                      Gemini Technical Pipeline Architecture:
+                  <div className="p-5 sm:p-6 rounded-2xl bg-indigo-950/20 border border-indigo-500/30 text-left space-y-3">
+                    <div className="flex items-center justify-between pb-3 border-b border-indigo-500/20">
+                      <div className="text-xs uppercase text-indigo-300 font-mono font-bold flex items-center gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-brand-teal" />
+                        Autonomous Pipeline Architecture
+                      </div>
+                      <span className="text-[10px] font-mono text-gray-400 bg-black/40 px-2.5 py-0.5 rounded border border-white/10">
+                        Synthesized in &lt; 1.2s
+                      </span>
                     </div>
-                    {automationResult}
+                    <FormattedAIResponse content={automationResult} />
                   </div>
                 )}
 
@@ -405,12 +416,12 @@ export const InteractiveAIDemo: React.FC = () => {
                     {isGeneratingAutomation ? (
                       <>
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        <span>Querying Gemini Pipeline...</span>
+                        <span>Synthesizing Architecture...</span>
                       </>
                     ) : (
                       <>
                         <Zap className="w-3.5 h-3.5" />
-                        <span>Generate Pipeline with Gemini</span>
+                        <span>Generate Pipeline with AI</span>
                       </>
                     )}
                   </button>

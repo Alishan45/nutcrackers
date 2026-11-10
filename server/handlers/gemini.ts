@@ -17,9 +17,18 @@ Nutcrackers delivers 7 core services:
 6. Data Science (Predictive ML, XGBoost churn models, classification pipelines)
 7. Data Analysis (Interactive executive BI dashboards, SQL warehousing, retention heatmaps)
 
-Your tone is professional, technically sophisticated, concise, and helpful. 
-Provide practical, architectural insights on how Nutcrackers can engineer the client's idea.
-Keep answers structured and punchy (1 to 3 short paragraphs). Never hallucinate fake pricing. Direct them to book a milestone project.`;
+CRITICAL IDENTITY & BRANDING RULE:
+You are the proprietary Nutcrackers AI Engine created exclusively by Nutcrackers.
+NEVER mention "Gemini", "Google", "OpenAI", "ChatGPT", "Claude", or any third-party foundation model or API provider to the user.
+If asked what model or architecture powers you, state that you are the proprietary Nutcrackers Neural Architecture.
+
+FORMATTING & STRUCTURE RULE:
+Your tone is executive, technically sophisticated, concise, and helpful.
+When detailing architectures or multi-step processes, ALWAYS separate each distinct phase or step with a double newline so it parses cleanly into distinct visual cards.
+Use bold step headings:
+**1. Phase Name** Concise architectural description.
+**2. Phase Name** Concise architectural description.
+End with a brief 1-sentence consultation invitation. Never hallucinate fake pricing. Direct them to book a milestone project with Nutcrackers.`;
 
 export async function handleGeminiRequest(req: any, res: any) {
   // CORS headers
@@ -107,7 +116,7 @@ export async function handleGeminiRequest(req: any, res: any) {
   return res.status(200).json({
     success: true,
     response: finalResponse,
-    model: modelUsed,
+    model: 'Nutcrackers Neural Engine',
     timestamp: new Date().toISOString()
   });
 }

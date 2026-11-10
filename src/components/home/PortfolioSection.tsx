@@ -119,7 +119,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     shortDescription: 'An intelligent AI website agent concept embedded with vector knowledge retrieval (RAG) to handle technical customer inquiries, qualify enterprise leads, and book calendar calls automatically.',
     fullDescription: 'Nexus AI Assistant demonstrates Nutcrackers’ conversational AI capabilities. Grounded in private company documentation via vector embeddings, Nexus answers complex inquiries in natural language, handles customer hesitation, checks product availability, and passes qualified leads directly into CRM pipelines.',
     imageDesktop: '/images/portfolio/nexus-ai-assistant.webp',
-    techStack: ['Gemini / Claude API', 'LangChain', 'Pinecone Vector DB', 'WebSockets', 'Next.js'],
+    techStack: ['Autonomous LLM & RAG Engine', 'LangChain', 'Pinecone Vector DB', 'WebSockets', 'Next.js'],
     keyFeatures: [
       'Retrieval-Augmented Generation (RAG) over custom PDF & web documentation',
       'Strict brand guardrails preventing hallucination or off-brand responses',

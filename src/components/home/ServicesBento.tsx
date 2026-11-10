@@ -114,7 +114,7 @@ export const NUTCRACKERS_SERVICES: ServiceData[] = [
       'Knowledge-base & vector documentation integration (RAG)',
       'Custom fine-tuned multi-modal AI agents'
     ],
-    techStack: ['OpenAI / Claude / Gemini API', 'LangChain', 'Pinecone', 'Next.js', 'WebSockets'],
+    techStack: ['Autonomous LLM / RAG Architecture', 'LangChain', 'Pinecone', 'Next.js', 'WebSockets'],
     icon: Bot,
     accent: 'from-purple-500/20 via-indigo-500/10 to-transparent',
     borderColor: 'group-hover:border-purple-400/50'
