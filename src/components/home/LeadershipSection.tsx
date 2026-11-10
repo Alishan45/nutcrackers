@@ -17,6 +17,7 @@ interface LeaderProfile {
   roleBadge: string;
   badgeColor: 'amber' | 'teal';
   image: string;
+  imageWebp: string;
   imageAlt: string;
   bio: string;
   responsibilities: string[];
@@ -34,6 +35,7 @@ const LEADERS: LeaderProfile[] = [
     designation: 'CEO',
     roleBadge: 'Founder & Chief Executive Officer',
     badgeColor: 'amber',
+    imageWebp: '/assets/ali-shan-ceo.webp',
     image: '/assets/ali-shan-ceo.jpeg',
     imageAlt: 'Ali Shan — Founder & CEO of Nutcrackers',
     bio: 'Leads agency vision, product strategy, client partnerships, and technical digital solutions architecture. Ali guides Nutcrackers in engineering high-impact digital experiences that bridge cutting-edge technology with commercial performance.',
@@ -68,6 +70,7 @@ const LEADERS: LeaderProfile[] = [
     designation: 'Co-Founder',
     roleBadge: 'Co-Founder & Chief Technology Officer',
     badgeColor: 'teal',
+    imageWebp: '/assets/muzzamil-shabbir-cto.webp',
     image: '/assets/muzzamil-shabbir-cto.jpeg',
     imageAlt: 'Muzzamil Shabbir — Co-Founder & CTO of Nutcrackers',
     bio: 'Directs technology strategy, software engineering standards, infrastructure reliability, and technical research and development. Muzzamil oversees system architectures and ensures every Nutcrackers digital product scales robustly.',
@@ -157,14 +160,18 @@ export const LeadershipSection: React.FC = () => {
               <div>
                 {/* Portrait Container */}
                 <div className="relative aspect-[4/4.2] sm:aspect-[4/4] w-full rounded-2xl overflow-hidden bg-black/60 border border-white/10 mb-6 shadow-inner">
-                  <img
-                    src={leader.image}
-                    alt={leader.imageAlt}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
+                  <picture>
+                    <source srcSet={leader.imageWebp} type="image/webp" />
+                    <img
+                      src={leader.image}
+                      alt={leader.imageAlt}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </picture>
                   {/* Subtle vignette gradient at bottom of photo */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E16] via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0E16] via-transparent to-transparent opacity-60 pointer-events-none" />
                   
                   {/* Badge floating on photo */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
