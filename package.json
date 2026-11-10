@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && esbuild server/api-handler.ts --bundle --platform=node --format=esm --outfile=api/index.js",
+    "build": "tsc && vite build && esbuild server/api-handler.ts --bundle --platform=node --format=esm --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" --outfile=api/index.js",
     "preview": "vite preview",
     "server": "tsx server/index.ts",
     "start": "tsx server/index.ts"
