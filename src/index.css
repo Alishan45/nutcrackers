@@ -81,4 +81,13 @@
   .radial-glow-cyan {
     background: radial-gradient(circle at 50% 50%, rgba(45, 212, 191, 0.12) 0%, rgba(13, 14, 22, 0) 70%);
   }
+
+  /* When a modal or full case study is open, ensure navbar header is completely hidden on both mobile and desktop */
+  body.case-study-open header {
+    transform: translateY(-8rem) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
 }

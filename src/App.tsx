@@ -19,6 +19,7 @@ import { WhatsAppFloat } from './components/common/WhatsAppFloat';
 
 export function App() {
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
+  const [isCaseStudyOpen, setIsCaseStudyOpen] = useState(false);
   const [quoteService, setQuoteService] = useState<string>('Video Editing');
 
   const handleOpenQuote = (serviceName?: string) => {
@@ -43,8 +44,11 @@ export function App() {
       {/* Background Gradients & Topographic Contours */}
       <BackgroundGradients />
 
-      {/* Floating Navigation Bar */}
-      <Navbar onOpenQuote={() => handleOpenQuote()} />
+      {/* Floating Navigation Bar - Disappears whenever a Case Study or Modal is open */}
+      <Navbar 
+        onOpenQuote={() => handleOpenQuote()} 
+        isHidden={isCaseStudyOpen || Boolean(selectedService)} 
+      />
 
       {/* Main Content Layout */}
       <main className="relative z-10">
@@ -70,7 +74,10 @@ export function App() {
         <WhyNutcrackers />
 
         {/* Selected Work & Portfolio Showcase */}
-        <PortfolioSection onInquireService={(serviceName) => handleOpenQuote(serviceName)} />
+        <PortfolioSection 
+          onInquireService={(serviceName) => handleOpenQuote(serviceName)} 
+          onCaseStudyToggle={setIsCaseStudyOpen}
+        />
 
         {/* 4-Step Methodology & Process */}
         <ProcessSection />

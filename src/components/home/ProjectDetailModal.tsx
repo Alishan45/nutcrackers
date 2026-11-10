@@ -34,16 +34,18 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 }) => {
   const [deviceView, setDeviceView] = useState<'desktop' | 'mobile'>('desktop');
   
-  // Close on Escape & Lock Body Scroll while modal is open
+  // Close on Escape, Lock Body Scroll & Hide Navbar while modal is open
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('case-study-open');
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = prevOverflow;
+      document.body.classList.remove('case-study-open');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);

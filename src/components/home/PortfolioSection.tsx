@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Play, 
   ExternalLink, 
@@ -216,11 +216,19 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
 
 interface PortfolioSectionProps {
   onInquireService?: (serviceName: string) => void;
+  onCaseStudyToggle?: (isOpen: boolean) => void;
 }
 
-export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onInquireService }) => {
+export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ 
+  onInquireService,
+  onCaseStudyToggle,
+}) => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+
+  useEffect(() => {
+    onCaseStudyToggle?.(Boolean(selectedProject));
+  }, [selectedProject, onCaseStudyToggle]);
 
   const categories = [
     'All',

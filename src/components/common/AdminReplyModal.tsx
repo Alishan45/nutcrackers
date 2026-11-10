@@ -48,9 +48,11 @@ export const AdminReplyModal: React.FC<AdminReplyModalProps> = ({
     };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('case-study-open');
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = prevOverflow;
+      document.body.classList.remove('case-study-open');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);

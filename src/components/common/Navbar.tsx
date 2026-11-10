@@ -4,12 +4,19 @@ import { Menu, X, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
 
 interface NavbarProps {
   onOpenQuote: () => void;
+  isHidden?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    if (isHidden) {
+      setMobileMenuOpen(false);
+    }
+  }, [isHidden]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +54,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote }) => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:pt-6 transition-all duration-300">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:pt-6 transition-all duration-300 ease-in-out ${
+        isHidden 
+          ? '-translate-y-32 opacity-0 pointer-events-none invisible' 
+          : 'translate-y-0 opacity-100 visible'
+      }`}
+      aria-hidden={isHidden ? 'true' : undefined}
+    >
       <nav 
         className={`w-full max-w-7xl mx-auto flex items-center justify-between px-5 py-3 sm:py-3.5 rounded-full transition-all duration-300 border ${
           scrolled 
