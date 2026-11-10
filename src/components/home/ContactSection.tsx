@@ -228,11 +228,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
                   <span className="text-[10px] font-mono text-gray-500">Official Card</span>
                 </div>
                 <div className="rounded-2xl overflow-hidden border border-white/10 group relative">
-                  <img
-                    src="/assets/business-card.jpeg"
-                    alt="Nutcrackers Official Business Card"
-                    className="w-full h-auto object-cover opacity-85 group-hover:opacity-100 transition-opacity"
-                  />
+                  <picture>
+                    <source srcSet="/assets/business-card.webp" type="image/webp" />
+                    <img
+                      src="/assets/business-card.jpeg"
+                      alt="Nutcrackers Official Business Card"
+                      className="w-full h-auto object-cover opacity-85 group-hover:opacity-100 transition-opacity"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
                     <span className="text-[10px] font-mono text-gray-300">
                       Nutcrackers Brand Card & WhatsApp QR

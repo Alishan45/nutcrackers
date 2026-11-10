@@ -396,19 +396,29 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 {/* Right Interactive Mockup with Desktop & Mobile Overlay */}
                 <div className="lg:col-span-6 relative">
                   <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black group/mockup">
-                    <img
-                      src="/assets/sbclinic-desktop.png"
-                      alt="SB Healthcare Clinic Desktop Platform"
-                      className="w-full h-auto object-cover transition-transform duration-500 group-hover/mockup:scale-102"
-                    />
+                    <picture>
+                      <source srcSet="/assets/sbclinic-desktop.webp" type="image/webp" />
+                      <img
+                        src="/assets/sbclinic-desktop.png"
+                        alt="SB Healthcare Clinic Desktop Platform"
+                        className="w-full h-auto object-cover transition-transform duration-500 group-hover/mockup:scale-102"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                     
                     {/* Floating Mobile Phone Preview */}
                     <div className="absolute -bottom-4 -right-4 w-36 sm:w-44 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black hidden sm:block">
-                      <img
-                        src="/assets/sbclinic-mobile.png"
-                        alt="SB Healthcare Clinic Mobile App View"
-                        className="w-full h-auto object-cover"
-                      />
+                      <picture>
+                        <source srcSet="/assets/sbclinic-mobile.webp" type="image/webp" />
+                        <img
+                          src="/assets/sbclinic-mobile.png"
+                          alt="SB Healthcare Clinic Mobile App View"
+                          className="w-full h-auto object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </picture>
                       <div className="absolute top-1.5 inset-x-0 mx-auto w-8 h-1 bg-white/40 rounded-full" />
                     </div>
 
@@ -468,6 +478,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                         src={project.imageDesktop}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3 opacity-90 group-hover/thumb:opacity-100 transition-opacity">
                         <span className="text-[11px] font-mono text-gray-300 flex items-center gap-1.5">

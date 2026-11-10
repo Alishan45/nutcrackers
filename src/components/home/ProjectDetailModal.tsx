@@ -191,6 +191,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     src={project.imageDesktop}
                     alt="SB Healthcare Clinic Desktop Screen"
                     className="w-full max-h-[380px] object-contain rounded-xl shadow-2xl"
+                    loading="eager"
+                    decoding="async"
                   />
                 ) : (
                   <div className="w-64 max-h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black">
@@ -198,6 +200,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                       src={project.imageMobile}
                       alt="SB Healthcare Clinic Mobile Screen"
                       className="w-full h-auto object-cover"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                 )}
@@ -210,6 +214,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 src={project.imageDesktop}
                 alt={project.title}
                 className="w-full h-full object-cover rounded-xl"
+                loading="eager"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                 <span className="text-xs font-mono text-gray-200">
