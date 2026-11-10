@@ -150,43 +150,44 @@ export const VideoShowcase: React.FC = () => {
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={() => isPlaying && setShowControls(false)}
-          className="relative rounded-3xl p-[1px] bg-gradient-to-b from-purple-500/30 via-white/10 to-transparent shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] overflow-hidden group"
+          className="relative rounded-2xl sm:rounded-3xl p-[1px] bg-gradient-to-b from-purple-500/30 via-white/10 to-transparent shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] overflow-hidden group"
         >
-          <div className="relative rounded-3xl bg-[#090A0F] overflow-hidden aspect-video flex items-center justify-center">
-            {/* HTML5 Native Video Tag */}
+          <div className="relative rounded-2xl sm:rounded-3xl bg-[#090A0F] overflow-hidden min-h-[310px] xs:min-h-[360px] sm:min-h-[420px] md:min-h-[480px] lg:min-h-[540px] aspect-[4/3.2] xs:aspect-[14/10] sm:aspect-video flex items-center justify-center">
+            {/* HTML5 Native Video Tag with FastStart WebP Poster */}
             <video
               ref={videoRef}
               src="/assets/intro-video.mp4"
+              poster="/assets/intro-video-poster.webp"
               playsInline
               preload="metadata"
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onEnded={() => setIsPlaying(false)}
               onClick={togglePlay}
-              className="w-full h-full object-contain cursor-pointer bg-black"
+              className="w-full h-full object-cover sm:object-contain cursor-pointer bg-black"
             />
 
             {/* Poster / Play Overlay before start */}
             {!hasStarted && (
               <div 
                 onClick={togglePlay}
-                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col items-center justify-center cursor-pointer z-20 group/poster"
+                className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent flex flex-col items-center justify-center cursor-pointer z-20 group/poster px-4 text-center"
               >
                 <div className="relative">
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 to-brand-teal rounded-full blur-xl opacity-50 group-hover/poster:opacity-80 transition-opacity" />
-                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/20 flex items-center justify-center text-white shadow-2xl transition-transform duration-300 group-hover/poster:scale-110">
-                    <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-white translate-x-0.5 text-white" />
+                  <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/20 flex items-center justify-center text-white shadow-2xl transition-transform duration-300 group-hover/poster:scale-110">
+                    <Play className="w-6 h-6 xs:w-8 xs:h-8 sm:w-10 sm:h-10 fill-white translate-x-0.5 text-white" />
                   </div>
                 </div>
 
-                <div className="mt-6 text-center">
-                  <span className="inline-block text-xs font-mono uppercase tracking-widest text-brand-teal px-3 py-1 rounded-full bg-brand-teal/10 border border-brand-teal/30 mb-2">
+                <div className="mt-4 sm:mt-6 text-center max-w-md">
+                  <span className="inline-block text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-teal px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-brand-teal/10 border border-brand-teal/30 mb-2">
                     Official Nutcrackers Showreel
                   </span>
-                  <h3 className="text-lg sm:text-xl font-bold text-white">
+                  <h3 className="text-base sm:text-xl font-bold text-white leading-snug">
                     Click to Play High-Definition Introduction
                   </h3>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-[11px] sm:text-xs text-gray-400 mt-1">
                     Visual Storytelling · Motion Graphics · Sound Design
                   </p>
                 </div>
