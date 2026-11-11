@@ -207,6 +207,19 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 )}
               </div>
             </div>
+          ) : project.videoUrl ? (
+            /* Commercial Video Showcase Player (plays immediately on modal open) */
+            <div className="rounded-2xl overflow-hidden border border-white/15 bg-black flex items-center justify-center relative shadow-2xl">
+              <video
+                src={project.videoUrl}
+                poster={project.imageDesktop}
+                controls
+                autoPlay
+                playsInline
+                preload="auto"
+                className="w-full max-h-[420px] object-contain bg-black"
+              />
+            </div>
           ) : project.imageDesktop ? (
             /* Bespoke 16:9 Project Mockup */
             <div className="rounded-2xl overflow-hidden border border-white/10 bg-black max-h-[380px] flex items-center justify-center relative group">

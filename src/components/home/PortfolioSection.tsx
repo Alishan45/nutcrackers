@@ -65,8 +65,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     shortDescription: 'A high-impact commercial video editing concept demonstrating retention-focused YouTube pacing, dynamic 3D titles, Lumetri color mastery, and multi-track audio synchronization.',
     fullDescription: 'MotionForge Studio is Nutcrackers’ flagship video editing showcase. Demonstrating how rhythm, kinetic subtitles, and micro-transitions boost audience retention and commercial conversion across YouTube, TikTok, Meta ads, and broadcast commercial reels.',
     imageDesktop: '/images/portfolio/motionforge-studio.webp',
-    videoUrl: '/assets/intro-video.mp4',
-    secondaryVideoUrl: '/assets/client-video.mp4',
+    videoUrl: '/assets/client-video.mp4',
+    secondaryVideoUrl: '/assets/intro-video.mp4',
     techStack: ['Adobe Premiere Pro', 'After Effects', 'DaVinci Resolve Studio', 'Audition', 'Blender 3D'],
     keyFeatures: [
       'Kinetic typography and dynamic motion tracking',
