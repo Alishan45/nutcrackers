@@ -26,17 +26,43 @@ export const VideoShowcase: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [hasStarted, setHasStarted] = useState(false);
-  const [videoSrc, setVideoSrc] = useState('/assets/intro-video.mp4');
+  const [shouldPreload, setShouldPreload] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [videoSrc, setVideoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth <= 768
+      ? '/assets/intro-video-mobile.mp4'
+      : '/assets/intro-video.mp4'
+  );
   const controlsTimeout = useRef<any>(null);
 
   useEffect(() => {
     const checkMobile = () => {
       const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-      setVideoSrc(isMobile ? '/assets/intro-video-mobile.mp4' : '/assets/intro-video.mp4');
+      const nextSrc = isMobile ? '/assets/intro-video-mobile.mp4' : '/assets/intro-video.mp4';
+      setVideoSrc((prev) => (prev === nextSrc ? prev : nextSrc));
     };
-    checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+
+    // Pre-buffer video frames smoothly once close to viewport or shortly after load
+    const idleTimer = window.setTimeout(() => setShouldPreload(true), 1200);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldPreload(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '1000px 0px' }
+    );
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.clearTimeout(idleTimer);
+      observer.disconnect();
+    };
   }, []);
 
   const togglePlay = () => {
@@ -130,8 +156,11 @@ export const VideoShowcase: React.FC = () => {
 
   return (
     <section id="showcase" className="py-24 sm:py-32 relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple-900/15 rounded-full blur-[160px] pointer-events-none -z-10" />
+      {/* Lightweight radial glow (no software blur filter bottleneck) */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.14) 0%, rgba(13,14,22,0) 70%)' }}
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
@@ -164,22 +193,29 @@ export const VideoShowcase: React.FC = () => {
           className="relative rounded-2xl sm:rounded-3xl p-[1px] bg-gradient-to-b from-purple-500/30 via-white/10 to-transparent shadow-[0_25px_80px_-20px_rgba(0,0,0,0.9)] overflow-hidden group"
         >
           <div className="relative rounded-2xl sm:rounded-3xl bg-[#090A0F] overflow-hidden min-h-[310px] xs:min-h-[360px] sm:min-h-[420px] md:min-h-[480px] lg:min-h-[540px] aspect-[4/3.2] xs:aspect-[14/10] sm:aspect-video flex items-center justify-center">
-            {/* HTML5 Native Video Tag with FastStart WebP Poster & Adaptive Mobile Source */}
+            {/* HTML5 Native Video Tag with FastStart WebP Poster & Adaptive Pre-Buffering */}
             <video
               ref={videoRef}
               src={videoSrc}
               poster="/assets/intro-video-poster.webp"
               playsInline
-              preload="metadata"
+              preload={shouldPreload ? 'auto' : 'metadata'}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
+              onWaiting={() => setIsBuffering(true)}
+              onCanPlay={() => setIsBuffering(false)}
+              onPlaying={() => setIsBuffering(false)}
               onEnded={() => setIsPlaying(false)}
               onClick={togglePlay}
               className="w-full h-full object-cover sm:object-contain cursor-pointer bg-black"
-            >
-              <source src="/assets/intro-video-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
-              <source src="/assets/intro-video.mp4" type="video/mp4" />
-            </video>
+            />
+
+            {/* Subtle Buffering Indicator if playing before buffer completes */}
+            {isBuffering && hasStarted && (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-20 bg-black/25">
+                <div className="w-10 h-10 rounded-full border-2 border-white/20 border-t-brand-teal animate-spin" />
+              </div>
+            )}
 
             {/* Poster / Play Overlay before start */}
             {!hasStarted && (

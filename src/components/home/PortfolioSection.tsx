@@ -35,7 +35,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     shortDescription: 'Full-stack pharmacy ecommerce and clinical discovery platform built for a premier healthcare center. Features real-time medicine search, 2,000+ catalog items, cart & checkout, and custom administrative management.',
     fullDescription: 'SB Healthcare Clinic required a modern, reliable, and patient-first digital ecosystem connecting their physical clinic, diagnostic laboratory, and pharmacy store in Wah Cantt, Pakistan. Nutcrackers architected and delivered a full-stack web application featuring instantaneous medicine discovery across 2,000+ authentic pharmaceutical products, lab test booking, prescription uploads, and seamless admin inventory management.',
     imageDesktop: '/images/portfolio/sbclinic-project.webp',
-    imageMobile: '/assets/sbclinic-mobile.png',
+    imageMobile: '/assets/sbclinic-mobile.webp',
     liveUrl: 'https://www.sbclinic.pk/',
     techStack: ['Next.js / React', 'TypeScript', 'Tailwind CSS', 'Supabase Database', 'ImageKit CDN', 'Vercel Edge'],
     keyFeatures: [
@@ -297,7 +297,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         {/* HERO CASE STUDY CARD: SB Healthcare Clinic (If 'All', 'Real Client Delivery', or 'Web & Ecommerce' active) */}
         {filteredProjects.some(p => p.id === 'sb-healthcare-clinic') && (
           <div className="mb-12 rounded-3xl p-[1px] bg-gradient-to-r from-brand-teal/50 via-purple-500/30 to-brand-gold/40 shadow-[0_20px_60px_-15px_rgba(45,212,191,0.25)]">
-            <div className="rounded-3xl bg-[#0B0D15]/95 backdrop-blur-xl p-6 sm:p-10 border border-white/[0.08]">
+            <div className="rounded-3xl bg-[#0B0D15]/95 sm:backdrop-blur-md p-6 sm:p-10 border border-white/[0.08]">
               
               {/* Badge row */}
               <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-white/[0.08] mb-6">
@@ -395,27 +395,31 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
                 {/* Right Interactive Mockup with Desktop & Mobile Overlay */}
                 <div className="lg:col-span-6 relative">
-                  <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black group/mockup">
+                  <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#090A0F] group/mockup">
                     <picture>
                       <source srcSet="/assets/sbclinic-desktop.webp" type="image/webp" />
                       <img
                         src="/assets/sbclinic-desktop.png"
                         alt="SB Healthcare Clinic Desktop Platform"
+                        width={1280}
+                        height={800}
                         className="w-full h-auto object-cover transition-transform duration-500 group-hover/mockup:scale-102"
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
                       />
                     </picture>
                     
                     {/* Floating Mobile Phone Preview */}
-                    <div className="absolute -bottom-4 -right-4 w-36 sm:w-44 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black hidden sm:block">
+                    <div className="absolute -bottom-4 -right-4 w-36 sm:w-44 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-[#090A0F] hidden sm:block">
                       <picture>
                         <source srcSet="/assets/sbclinic-mobile.webp" type="image/webp" />
                         <img
                           src="/assets/sbclinic-mobile.png"
                           alt="SB Healthcare Clinic Mobile App View"
+                          width={390}
+                          height={844}
                           className="w-full h-auto object-cover"
-                          loading="lazy"
+                          loading="eager"
                           decoding="async"
                         />
                       </picture>
@@ -443,7 +447,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 className="group rounded-3xl bg-[#0D0E16]/85 border border-white/[0.08] overflow-hidden flex flex-col justify-between hover:border-purple-500/40 hover:bg-[#12131F] transition-all duration-300 hover:shadow-[0_12px_40px_-15px_rgba(0,0,0,0.8)] text-left"
               >
                 {/* Media Preview */}
-                <div className="relative aspect-video bg-black/60 overflow-hidden flex items-center justify-center">
+                <div className="relative aspect-video bg-[#0B0C14] overflow-hidden flex items-center justify-center">
                   {project.videoUrl ? (
                     <div 
                       onClick={() => setSelectedProject(project)}
@@ -451,20 +455,21 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     >
                       <video
                         src={project.videoUrl}
+                        poster={project.imageDesktop || '/assets/intro-video-poster.webp'}
                         muted
                         loop
                         playsInline
-                        preload="metadata"
+                        preload="none"
                         onMouseEnter={(e) => (e.target as HTMLVideoElement).play().catch(() => {})}
                         onMouseLeave={(e) => {
                           const v = e.target as HTMLVideoElement;
                           v.pause();
                           v.currentTime = 0;
                         }}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover/vid:scale-105 opacity-80 group-hover/vid:opacity-100"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover/vid:scale-105 opacity-90 group-hover/vid:opacity-100"
                       />
-                      <div className="absolute inset-0 bg-black/30 group-hover/vid:bg-black/10 flex items-center justify-center transition-all">
-                        <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl group-hover/vid:scale-110 transition-transform">
+                      <div className="absolute inset-0 bg-black/25 group-hover/vid:bg-black/10 flex items-center justify-center transition-all">
+                        <div className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white shadow-xl group-hover/vid:scale-110 transition-transform">
                           <Play className="w-5 h-5 fill-white translate-x-0.5" />
                         </div>
                       </div>
@@ -477,8 +482,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       <img
                         src={project.imageDesktop}
                         alt={project.title}
+                        width={960}
+                        height={535}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3 opacity-90 group-hover/thumb:opacity-100 transition-opacity">

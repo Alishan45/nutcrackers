@@ -17,8 +17,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       id="home" 
       className="relative pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden flex flex-col items-center justify-center min-h-[680px] lg:min-h-[820px]"
     >
-      {/* Background Radial Ambient Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[500px] bg-gradient-to-tr from-purple-900/25 via-indigo-900/20 to-teal-900/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      {/* Background Radial Ambient Lighting (GPU-free pure radial gradient) */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[550px] pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.16) 0%, rgba(99,102,241,0.10) 40%, rgba(9,10,15,0) 70%)' }}
+      />
 
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
         {/* Top Status Pill */}

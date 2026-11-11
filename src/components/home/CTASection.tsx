@@ -12,10 +12,13 @@ export const CTASection: React.FC<CTASectionProps> = ({ onStartProject, onContac
     <section className="py-20 sm:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="relative rounded-3xl p-[1px] bg-gradient-to-r from-purple-500/40 via-indigo-500/30 to-brand-teal/40 overflow-hidden shadow-[0_20px_60px_-15px_rgba(168,85,247,0.3)]">
-          <div className="relative rounded-3xl bg-[#0B0C14]/90 backdrop-blur-2xl p-8 sm:p-16 text-center flex flex-col items-center">
+          <div className="relative rounded-3xl bg-[#0B0C14]/95 sm:backdrop-blur-md p-8 sm:p-16 text-center flex flex-col items-center">
             
             {/* Background Ambient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[340px] pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at center, rgba(147,51,234,0.18) 0%, rgba(11,12,20,0) 70%)' }}
+            />
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-6">
               <Sparkles className="w-3.5 h-3.5 text-brand-gold" />

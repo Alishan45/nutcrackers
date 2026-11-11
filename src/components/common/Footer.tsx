@@ -48,7 +48,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
   return (
     <footer className="relative bg-[#07080D] border-t border-white/[0.08] pt-16 sm:pt-20 pb-12 overflow-hidden">
       {/* Background radial glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-950/20 rounded-full blur-[140px] pointer-events-none" />
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[650px] h-[320px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(88,28,135,0.18) 0%, rgba(7,8,13,0) 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 sm:pb-16 border-b border-white/[0.06]">

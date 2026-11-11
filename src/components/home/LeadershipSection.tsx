@@ -99,9 +99,15 @@ const LEADERS: LeaderProfile[] = [
 export const LeadershipSection: React.FC = () => {
   return (
     <section id="team" className="py-24 sm:py-32 relative overflow-hidden">
-      {/* Background radial ambience */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-purple-950/20 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-teal-950/15 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background radial ambience (pure radial gradient for 120fps scroll) */}
+      <div
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(88,28,135,0.16) 0%, rgba(9,10,15,0) 70%)' }}
+      />
+      <div
+        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(19,78,74,0.14) 0%, rgba(9,10,15,0) 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         

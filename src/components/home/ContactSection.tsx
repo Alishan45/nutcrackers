@@ -227,14 +227,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService }
                   <span className="font-mono text-[10px] text-brand-gold uppercase">Authentic Brand Asset</span>
                   <span className="text-[10px] font-mono text-gray-500">Official Card</span>
                 </div>
-                <div className="rounded-2xl overflow-hidden border border-white/10 group relative">
+                <div className="rounded-2xl overflow-hidden border border-white/10 group relative bg-[#090A0F]">
                   <picture>
                     <source srcSet="/assets/business-card.webp" type="image/webp" />
                     <img
                       src="/assets/business-card.jpeg"
                       alt="Nutcrackers Official Business Card"
-                      className="w-full h-auto object-cover opacity-85 group-hover:opacity-100 transition-opacity"
-                      loading="lazy"
+                      width={1100}
+                      height={737}
+                      className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                      loading="eager"
                       decoding="async"
                     />
                   </picture>

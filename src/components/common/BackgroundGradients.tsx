@@ -2,39 +2,39 @@ import React from 'react';
 
 export const BackgroundGradients: React.FC = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transform-gpu" aria-hidden="true">
       {/* Deep Obsidian Base */}
       <div className="absolute inset-0 bg-[#090A0F]" />
 
-      {/* Primary Purple / Indigo Ambient Orb (Top Center/Right) */}
+      {/* Primary Purple / Indigo Ambient Orb (Top Center/Right) - Pure smooth radial gradient (0 GPU blur cost) */}
       <div 
-        className="absolute -top-[15%] left-[20%] w-[800px] h-[800px] rounded-full blur-[140px] opacity-25"
+        className="absolute -top-[18%] left-[15%] w-[900px] h-[900px] rounded-full opacity-35"
         style={{
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(99, 102, 241, 0.25) 50%, rgba(9, 10, 15, 0) 80%)'
+          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(99, 102, 241, 0.14) 38%, rgba(9, 10, 15, 0) 70%)'
         }}
       />
 
       {/* Electric Blue / Teal Ambient Orb (Mid Left) */}
       <div 
-        className="absolute top-[35%] -left-[10%] w-[650px] h-[650px] rounded-full blur-[130px] opacity-20"
+        className="absolute top-[30%] -left-[12%] w-[750px] h-[750px] rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(45, 212, 191, 0.4) 0%, rgba(56, 189, 248, 0.2) 50%, rgba(9, 10, 15, 0) 80%)'
+          background: 'radial-gradient(circle, rgba(45, 212, 191, 0.28) 0%, rgba(56, 189, 248, 0.12) 40%, rgba(9, 10, 15, 0) 70%)'
         }}
       />
 
       {/* Subtle Warm Amber / Gold Orb (Mid Right) echoing business card */}
       <div 
-        className="absolute top-[60%] -right-[5%] w-[600px] h-[600px] rounded-full blur-[140px] opacity-15"
+        className="absolute top-[58%] -right-[8%] w-[700px] h-[700px] rounded-full opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(168, 85, 247, 0.15) 60%, rgba(9, 10, 15, 0) 80%)'
+          background: 'radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(168, 85, 247, 0.10) 45%, rgba(9, 10, 15, 0) 70%)'
         }}
       />
 
       {/* Bottom Deep Indigo Orb */}
       <div 
-        className="absolute -bottom-[10%] left-[30%] w-[700px] h-[700px] rounded-full blur-[150px] opacity-20"
+        className="absolute -bottom-[12%] left-[25%] w-[800px] h-[800px] rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(79, 70, 229, 0.4) 0%, rgba(13, 14, 22, 0) 75%)'
+          background: 'radial-gradient(circle, rgba(79, 70, 229, 0.28) 0%, rgba(13, 14, 22, 0) 70%)'
         }}
       />
 

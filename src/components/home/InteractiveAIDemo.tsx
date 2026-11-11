@@ -207,7 +207,7 @@ export const InteractiveAIDemo: React.FC = () => {
 
         {/* Interactive Workspace Panel */}
         <div className="relative rounded-3xl p-[1px] bg-gradient-to-b from-white/15 via-white/5 to-transparent shadow-2xl">
-          <div className="rounded-3xl bg-[#0B0C14]/95 backdrop-blur-2xl border border-white/[0.08] p-5 sm:p-8 min-h-[480px] flex flex-col justify-between">
+          <div className="rounded-3xl bg-[#0B0C14]/95 sm:backdrop-blur-md border border-white/[0.08] p-5 sm:p-8 min-h-[480px] flex flex-col justify-between">
             
             {/* Top Demonstration Disclaimer Banner */}
             <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-white/[0.08] mb-6">
