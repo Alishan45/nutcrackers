@@ -24,9 +24,9 @@ export const CTASection: React.FC<CTASectionProps> = ({ onStartProject, onContac
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight max-w-3xl leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-3xl leading-tight">
               Have an Idea?{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300 animate-gradient-text">
                 <ScrambleText text="Let's Make It Happen." />
               </span>
             </h2>

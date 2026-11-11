@@ -42,7 +42,29 @@
   }
 }
 
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 @layer utilities {
+  /* Force WebKit background text clipping across mobile iOS Safari and Android Chrome */
+  .bg-clip-text {
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+  }
+
+  .animate-gradient-text {
+    background-size: 200% auto;
+    animation: text-shimmer 6s ease infinite;
+  }
   .glass-card {
     background: rgba(255, 255, 255, 0.035);
     backdrop-filter: blur(16px);

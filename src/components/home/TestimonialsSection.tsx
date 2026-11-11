@@ -15,9 +15,9 @@ export const TestimonialsSection: React.FC = () => {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Built on Integrity.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300 animate-gradient-text">
               <ScrambleText text="Measured by Impact." />
             </span>
           </h2>

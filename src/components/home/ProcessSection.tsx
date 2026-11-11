@@ -58,9 +58,9 @@ export const ProcessSection: React.FC = () => {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Engineered for Precision.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-brand-amber">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-brand-amber animate-gradient-text">
               <ScrambleText text="Built for Growth." />
             </span>
           </h2>

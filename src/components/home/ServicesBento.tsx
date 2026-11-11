@@ -201,9 +201,9 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Specialized Services.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-brand-gold">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-brand-gold animate-gradient-text">
               <ScrambleText text="One Unified Standard." />
             </span>
           </h2>

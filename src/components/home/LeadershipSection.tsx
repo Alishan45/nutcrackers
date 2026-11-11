@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ScrambleText } from '../common/ScrambleText';
 import { 
   Users, 
   Mail, 
@@ -124,11 +125,11 @@ export const LeadershipSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+            className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight"
           >
             Meet the Minds Behind{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-amber-200 to-brand-teal">
-              Nutcrackers.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-amber-200 to-brand-teal animate-gradient-text">
+              <ScrambleText text="Nutcrackers." />
             </span>
           </motion.h2>
 

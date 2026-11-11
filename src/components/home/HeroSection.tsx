@@ -34,13 +34,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         {/* Hero Headline with Kinetic Scramble Effect */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-5xl leading-[1.12] sm:leading-[1.1]">
+        <h1 className="text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-5xl leading-[1.15] sm:leading-[1.1]">
           We Turn Complex Ideas Into{' '}
           <span className="relative inline-block mt-1 sm:mt-0">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300">
-              <ScrambleText text="Digital Excellence." />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-teal-300 animate-gradient-text">
+              <ScrambleText text="Digital Excellence." initialDelay={350} />
             </span>
-            <div className="absolute -bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-indigo-400 to-brand-teal opacity-70 blur-[0.5px]" />
+            <div className="absolute -bottom-1.5 sm:-bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-indigo-400 to-brand-teal opacity-80 blur-[0.5px]" />
           </span>
         </h1>
 
