@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageSquare } from 'lucide-react';
+import { trackWhatsAppClick } from '../../utils/analytics';
 
 interface WhatsAppFloatProps {
   isHidden?: boolean;
@@ -27,6 +28,7 @@ export const WhatsAppFloat: React.FC<WhatsAppFloatProps> = ({ isHidden = false }
         href="https://wa.me/923125355078?text=Hello%20Nutcrackers%2C%20I%20am%20interested%20in%20discussing%20a%20project."
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick('float_button')}
         aria-label="Chat directly with Nutcrackers on WhatsApp"
         className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-brand-teal via-emerald-500 to-teal-400 text-black shadow-[0_0_20px_rgba(45,212,191,0.45)] hover:shadow-[0_0_35px_rgba(45,212,191,0.7)] hover:scale-105 transition-all duration-300 focus:outline-none"
       >

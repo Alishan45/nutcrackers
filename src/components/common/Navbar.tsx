@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NutcrackersLogo } from './NutcrackersLogo';
 import { Menu, X, ArrowUpRight, MessageSquare, BookOpen } from 'lucide-react';
+import { trackWhatsAppClick } from '../../utils/analytics';
 
 interface NavbarProps {
   onOpenQuote: () => void;
@@ -114,6 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false, c
             href="https://wa.me/923125355078?text=Hello%20Nutcrackers%2C%20I%20am%20interested%20in%20your%20services."
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('navbar_header')}
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-medium text-gray-300 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 rounded-full transition-all duration-200"
             title="Chat directly on WhatsApp"
           >
@@ -167,6 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false, c
               href="https://wa.me/923125355078?text=Hello%20Nutcrackers%2C%20I%20am%20interested%20in%20your%20services."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('navbar_mobile_drawer')}
               className="flex items-center justify-center gap-2 py-2.5 text-xs font-medium text-white bg-white/[0.04] border border-white/10 rounded-xl"
             >
               <MessageSquare className="w-4 h-4 text-brand-teal" />

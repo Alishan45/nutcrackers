@@ -9,6 +9,7 @@ import {
   FileText,
   X
 } from 'lucide-react';
+import { trackWhatsAppClick } from '../../utils/analytics';
 
 interface FooterProps {
   onSelectService?: (serviceName: string) => void;
@@ -69,6 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
                 href="https://wa.me/923125355078"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('footer_social_icon')}
                 className="p-2.5 rounded-full bg-white/[0.03] hover:bg-brand-teal/20 border border-white/10 hover:border-brand-teal/40 text-gray-300 hover:text-brand-teal transition-all"
                 title="Direct WhatsApp"
               >
@@ -148,6 +150,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
                   href="https://wa.me/923125355078" 
                   target="_blank" 
                   rel="noopener noreferrer" 
+                  onClick={() => trackWhatsAppClick('footer_phone_link')}
                   className="text-white hover:text-brand-teal transition-colors block mt-0.5"
                 >
                   +92 312 5355078
@@ -160,6 +163,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
                   href="https://wa.me/923105522970" 
                   target="_blank" 
                   rel="noopener noreferrer" 
+                  onClick={() => trackWhatsAppClick('footer_cto_whatsapp')}
                   className="text-white hover:text-teal-300 transition-colors block mt-0.5"
                 >
                   +92 310 5522970
