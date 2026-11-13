@@ -1,13 +1,16 @@
 /**
- * Nutcrackers Google Analytics 4 (GA4) Telemetry & Conversion Tracking
+ * Nutcrackers Analytics & Telemetry Layer
  * 
- * Provides privacy-conscious, lightweight event dispatching for high-intent user interactions:
- * - Page views on route changes
- * - Direct WhatsApp CTA clicks (with context)
- * - Lead intake form submissions
- * - Quote requests
- * - Video showreel engagement
- * - Service & Case Study inspections
+ * Configured with:
+ * - Google Tag Manager Container ID: GTM-T4TT4C9D
+ * - Google Analytics 4 Measurement ID: G-VZGF3JW1T5
+ * 
+ * Provides robust, non-blocking telemetry via the window.dataLayer:
+ * - Client-side SPA route changes (page_view)
+ * - Direct WhatsApp CTA interactions (whatsapp_click)
+ * - Lead form and quote requests (generate_lead)
+ * - Showreel video engagement (video_start)
+ * - Privacy-preserving fallbacks when adblockers or privacy shields block network requests
  */
 
 declare global {
@@ -17,65 +20,55 @@ declare global {
   }
 }
 
-// Environment variable configuration: VITE_GA_MEASUREMENT_ID (e.g. 'G-XXXXXXXXXX')
-export const GA_MEASUREMENT_ID = (import.meta as any).env?.VITE_GA_MEASUREMENT_ID || '';
+export const GTM_CONTAINER_ID = 'GTM-T4TT4C9D';
+export const GA4_MEASUREMENT_ID = 'G-VZGF3JW1T5';
 
 /**
- * Initializes GA4 script tag dynamically if VITE_GA_MEASUREMENT_ID is defined.
- * If not yet defined, functions safely log to console in development mode.
+ * Ensures window.dataLayer exists safely. GTM snippet in index.html handles container loading.
+ * No duplicate independent gtag.js script is injected.
  */
-export const initGA = () => {
+export const initAnalytics = () => {
   if (typeof window === 'undefined') return;
-  if (!GA_MEASUREMENT_ID) {
-    if ((import.meta as any).env?.DEV) {
-      console.info('[Analytics] VITE_GA_MEASUREMENT_ID not set. GA4 events running in mock/debug mode.');
-    }
-    return;
+  try {
+    window.dataLayer = window.dataLayer || [];
+  } catch (e) {
+    // Graceful degradation if window access is restricted
   }
-
-  // Prevent duplicate script injection
-  if (document.getElementById('ga4-script')) return;
-
-  const script = document.createElement('script');
-  script.id = 'ga4-script';
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script);
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () {
-    window.dataLayer?.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    send_page_view: false, // Handled manually on route navigation
-    anonymize_ip: true,
-    cookie_flags: 'SameSite=None;Secure',
-  });
 };
 
+// Backward-compatible alias
+export const initGA = initAnalytics;
+
 /**
- * Dispatches a Page View event on SPA route changes
+ * Dispatches a 'page_view' event to GTM dataLayer on client-side route transitions.
+ * Guarantees zero runtime crashes if third-party scripts are blocked.
  */
 export const trackPageView = (path: string, title?: string) => {
   if (typeof window === 'undefined') return;
 
-  const pageTitle = title || document.title;
-  const pageLocation = window.location.href;
+  try {
+    const pageTitle = title || document.title;
+    const pageLocation = window.location.href;
 
-  if (window.gtag && GA_MEASUREMENT_ID) {
-    window.gtag('event', 'page_view', {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'page_view',
       page_path: path,
       page_title: pageTitle,
       page_location: pageLocation,
+      ga4_measurement_id: GA4_MEASUREMENT_ID,
     });
-  } else if ((import.meta as any).env?.DEV) {
-    console.debug(`[Analytics Track] Page View: ${path} | ${pageTitle}`);
+
+    if ((import.meta as any).env?.DEV) {
+      console.debug(`[GTM Telemetry] page_view:`, { path, pageTitle, pageLocation });
+    }
+  } catch (err) {
+    // Prevent client errors when adblockers restrict dataLayer
   }
 };
 
 /**
- * Dispatches custom conversion events
+ * Dispatches custom conversion and engagement events to GTM dataLayer
  */
 export const trackEvent = (
   eventName: string,
@@ -83,15 +76,23 @@ export const trackEvent = (
 ) => {
   if (typeof window === 'undefined') return;
 
-  if (window.gtag && GA_MEASUREMENT_ID) {
-    window.gtag('event', eventName, eventParams);
-  } else if ((import.meta as any).env?.DEV) {
-    console.debug(`[Analytics Track] Event: ${eventName}`, eventParams);
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: eventName,
+      ...eventParams,
+    });
+
+    if ((import.meta as any).env?.DEV) {
+      console.debug(`[GTM Telemetry] event: ${eventName}`, eventParams);
+    }
+  } catch (err) {
+    // Graceful error suppression
   }
 };
 
 /**
- * Specialized high-intent conversion event: WhatsApp click
+ * High-intent conversion event: WhatsApp direct interaction
  */
 export const trackWhatsAppClick = (source: string, service?: string) => {
   trackEvent('whatsapp_click', {
@@ -103,7 +104,7 @@ export const trackWhatsAppClick = (source: string, service?: string) => {
 };
 
 /**
- * Specialized high-intent conversion event: Lead Form submission or Quote Request
+ * High-intent conversion event: Lead intake form or quote request
  */
 export const trackFormSubmission = (service: string, budget?: string, timeline?: string) => {
   trackEvent('generate_lead', {
@@ -115,6 +116,9 @@ export const trackFormSubmission = (service: string, budget?: string, timeline?:
   });
 };
 
+/**
+ * Secondary lead action intent event
+ */
 export const trackLeadConversion = (action: string, serviceTitle?: string) => {
   trackEvent('conversion_intent', {
     event_category: 'Lead Action',
@@ -123,9 +127,8 @@ export const trackLeadConversion = (action: string, serviceTitle?: string) => {
   });
 };
 
-
 /**
- * Specialized engagement event: Video play
+ * Engagement event: Video showcase playback
  */
 export const trackVideoPlay = (videoTitle: string, duration?: number) => {
   trackEvent('video_start', {

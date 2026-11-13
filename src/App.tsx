@@ -37,24 +37,26 @@ export function App() {
     return '/';
   });
 
-  // Initialize GA4 telemetry
+  // Initialize telemetry
   useEffect(() => {
     initGA();
   }, []);
 
-  // Track page view and handle popstate
+  // Handle browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => {
       const p = window.location.pathname.replace(/\/$/, '');
       const path = p === '' ? '/' : p;
       setCurrentPath(path);
-      trackPageView(path);
     };
 
     window.addEventListener('popstate', handlePopState);
-    trackPageView(currentPath);
-
     return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Track page view once per route transition
+  useEffect(() => {
+    trackPageView(currentPath);
   }, [currentPath]);
 
   // Intercept internal link clicks for smooth SPA routing
@@ -102,7 +104,6 @@ export function App() {
           window.history.pushState({}, '', href);
           setCurrentPath(cleanPath);
           window.scrollTo({ top: 0, behavior: 'smooth' });
-          trackPageView(cleanPath);
         } else if (hash) {
           const el = document.getElementById(hash);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
