@@ -83,14 +83,21 @@ const LEADERS: LeaderProfile[] = [
     ],
     links: [
       {
+        label: 'Portfolio (muzammilshabbir.vercel.app)',
+        href: 'https://muzammilshabbir.vercel.app/',
+        icon: Globe,
+        isExternal: true,
+      },
+      {
+        label: 'WhatsApp (+92 310 5522970)',
+        href: 'https://wa.me/923105522970',
+        icon: MessageSquare,
+        isExternal: true,
+      },
+      {
         label: 'Direct Email via Agency',
         href: 'mailto:alishan.cs01@gmail.com?subject=Inquiry%20for%20Muzzamil%20Shabbir%20-%20Nutcrackers',
         icon: Mail,
-      },
-      {
-        label: 'Official Agency Inquiries',
-        href: '#contact',
-        icon: ArrowUpRight,
       },
     ],
   },
