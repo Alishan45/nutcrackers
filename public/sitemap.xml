@@ -2,58 +2,101 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Core Homepage -->
   <url>
-    <loc>https://nutcrackers.vercel.app/</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://nutcrackers.tech/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- 8 Core Service Landing Pages -->
   <url>
-    <loc>https://nutcrackers.vercel.app/#services</loc>
-    <lastmod>2026-11-11</lastmod>
+    <loc>https://nutcrackers.tech/web-development</loc>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://nutcrackers.vercel.app/#showcase</loc>
-    <lastmod>2026-11-11</lastmod>
+    <loc>https://nutcrackers.tech/mobile-app-development</loc>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://nutcrackers.vercel.app/#demo</loc>
-    <lastmod>2026-11-11</lastmod>
+    <loc>https://nutcrackers.tech/ai-automation</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/chatbot-development</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/data-science</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/data-analytics</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/digital-marketing</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/video-editing</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Engineering Blog Hub -->
+  <url>
+    <loc>https://nutcrackers.tech/blog</loc>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- Content Marketing Article Guides -->
   <url>
-    <loc>https://nutcrackers.vercel.app/#work</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://nutcrackers.vercel.app/#process</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nutcrackers.vercel.app/#team</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://nutcrackers.tech/blog/choose-right-web-development-company-pakistan</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutcrackers.vercel.app/#about</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://nutcrackers.tech/blog/how-ai-automation-improves-business-productivity</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nutcrackers.vercel.app/#contact</loc>
-    <lastmod>2026-11-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <loc>https://nutcrackers.tech/blog/why-businesses-need-data-analytics-bi</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/blog/custom-chatbots-vs-traditional-customer-support</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nutcrackers.tech/blog/choose-mobile-app-development-company</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

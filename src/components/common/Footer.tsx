@@ -25,24 +25,25 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
   };
 
   const services = [
-    'Video Editing',
-    'Digital Marketing',
-    'Mobile App & Web Development',
-    'AI Website Agent',
-    'AI Automation',
-    'Data Science',
-    'Data Analysis',
+    { name: 'Web Development', path: '/web-development' },
+    { name: 'Mobile App Development', path: '/mobile-app-development' },
+    { name: 'AI Automation', path: '/ai-automation' },
+    { name: 'AI Chatbot Development', path: '/chatbot-development' },
+    { name: 'Data Science', path: '/data-science' },
+    { name: 'Data Analytics', path: '/data-analytics' },
+    { name: 'Digital Marketing', path: '/digital-marketing' },
+    { name: 'Video Editing', path: '/video-editing' },
   ];
 
   const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'Showcase Video', href: '#showcase' },
-    { name: 'Interactive AI Demo', href: '#demo' },
-    { name: 'Our Work', href: '#work' },
-    { name: 'About Nutcrackers', href: '#about' },
-    { name: 'Leadership Team', href: '#team' },
-    { name: 'Contact Us', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'All Services', href: '/#services' },
+    { name: 'Engineering Blog', href: '/blog' },
+    { name: 'Video Showcase', href: '/#showcase' },
+    { name: 'Interactive AI Demo', href: '/#demo' },
+    { name: 'Client Work & Portfolio', href: '/#work' },
+    { name: 'Leadership Team', href: '/#team' },
+    { name: 'Contact & Quotes', href: '/#contact' },
   ];
 
   return (
@@ -61,9 +62,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
             <NutcrackersLogo size="md" showSubtitle />
             
             <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-sm pt-2">
-              Nutcrackers is a premier AI & Digital Solutions agency. We architect custom full-stack software, 
-              deploy autonomous AI website agents, automate high-friction operational workflows, 
-              and produce commercial high-retention video edits.
+              Nutcrackers is a premier AI & Digital Solutions agency. We engineer custom web applications, 
+              cross-platform mobile apps, autonomous AI agents, enterprise workflow automations, 
+              data science pipelines, and high-retention video production.
             </p>
 
             <div className="pt-2 flex items-center gap-3">
@@ -81,28 +82,37 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-full bg-white/[0.03] hover:bg-purple-500/20 border border-white/10 hover:border-purple-500/40 text-gray-300 hover:text-purple-300 transition-all"
-                title="Official Portfolio"
+                title="Founder Portfolio"
+              >
+                <Globe className="w-4 h-4" />
+              </a>
+              <a
+                href="https://muzammilshabbir.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-white/[0.03] hover:bg-teal-500/20 border border-white/10 hover:border-teal-500/40 text-gray-300 hover:text-teal-300 transition-all"
+                title="CTO Portfolio"
               >
                 <Globe className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Column 2: All 7 Services (span 4) */}
+          {/* Column 2: All 8 Services (span 4) */}
           <div className="lg:col-span-4 space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-widest text-brand-gold font-semibold">
-              Our Seven Services
+              Our Core Services
             </h4>
             <ul className="space-y-2 pt-1">
               {services.map((service, idx) => (
                 <li key={idx}>
                   <a
-                    href="#services"
-                    onClick={() => onSelectService && onSelectService(service)}
+                    href={service.path}
+                    onClick={() => onSelectService && onSelectService(service.name)}
                     className="text-xs sm:text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block"
                   >
                     <span className="text-gray-600 font-mono mr-1.5 text-[11px]">0{idx + 1}.</span>
-                    {service}
+                    {service.name}
                   </a>
                 </li>
               ))}
@@ -148,21 +158,21 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
               </div>
 
               <div>
-                <span className="text-gray-500 block text-[10px]">OFFICIAL PORTAL</span>
+                <span className="text-gray-500 block text-[10px]">CO-FOUNDER & CTO</span>
                 <a 
-                  href="https://alishanai.vercel.app" 
+                  href="https://wa.me/923105522970" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-white hover:text-purple-300 transition-colors block mt-0.5"
+                  className="text-white hover:text-teal-300 transition-colors block mt-0.5"
                 >
-                  alishanai.vercel.app
+                  +92 310 5522970
                 </a>
               </div>
 
               <div>
-                <span className="text-gray-500 block text-[10px]">HEADQUARTERS</span>
+                <span className="text-gray-500 block text-[10px]">SERVICE REGIONS</span>
                 <span className="text-gray-300 block mt-0.5">
-                  Nutcrackers Digital Studio
+                  Pakistan (Taxila, Wah Cantt, Islamabad, Rawalpindi) & Global
                 </span>
               </div>
             </div>
@@ -173,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
           <div>
-            © {new Date().getFullYear()} Nutcrackers. All rights reserved. Built with precision for digital growth.
+            © {new Date().getFullYear()} Nutcrackers. All rights reserved. Engineering high-performance digital products.
           </div>
 
           <div className="flex items-center gap-6">
@@ -198,68 +208,95 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
             </button>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-full bg-white/[0.04] hover:bg-white/10 text-gray-300 hover:text-white transition-colors focus:outline-none"
+              className="p-2 rounded-full bg-white/[0.04] hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
               aria-label="Scroll to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Legal Modals */}
+      {/* Admin Reply Direct Modal */}
+      {isAdminReplyOpen && (
+        <AdminReplyModal isOpen={isAdminReplyOpen} onClose={() => setIsAdminReplyOpen(false)} />
+      )}
+
+      {/* Privacy Policy & Terms Modal */}
       {modalType && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setModalType(null);
-          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+          onClick={() => setModalType(null)}
         >
-          <div className="relative w-full max-w-lg bg-[#0D0E16] rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl my-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                {modalType === 'privacy' ? <Shield className="w-5 h-5 text-brand-teal" /> : <FileText className="w-5 h-5 text-purple-400" />}
-                {modalType === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions'}
-              </h3>
-              <button
-                onClick={() => setModalType(null)}
-                className="p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.15] border border-white/15 text-gray-300 hover:text-white transition-all focus:outline-none cursor-pointer"
-                title="Close window (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="text-xs text-gray-300 space-y-3 leading-relaxed max-h-72 overflow-y-auto pr-2">
-              {modalType === 'privacy' ? (
-                <>
-                  <p>Nutcrackers respects client confidentiality and digital privacy. Any personal or commercial information submitted via our inquiry forms or WhatsApp channels is used solely for project estimation and business communication.</p>
-                  <p>We will never sell, lease, or monetize your contact details. Client IP and code repositories remain 100% private under strict non-disclosure protections.</p>
-                  <p>For questions or data deletion requests, contact us directly at +92 312 5355078.</p>
-                </>
-              ) : (
-                <>
-                  <p>All software engineering, AI agent implementations, and video production deliverables created by Nutcrackers are transferred with full client intellectual property ownership upon milestone completion.</p>
-                  <p>Milestone scopes and revision rounds are agreed upon prior to project initiation. Sprints are executed with continuous feedback and transparent progress updates.</p>
-                  <p>Nutcrackers guarantees performance SLAs for deployed custom systems and provides ongoing maintenance agreements as outlined in each project contract.</p>
-                </>
-              )}
-            </div>
-
-            <button
+          <div 
+            className="relative w-full max-w-2xl bg-[#0e0f17] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[85vh] text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
               onClick={() => setModalType(null)}
-              className="mt-6 w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/10 transition-colors"
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+              aria-label="Close modal"
             >
-              Close
+              <X className="w-5 h-5" />
             </button>
+
+            {modalType === 'privacy' ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-brand-teal">
+                  <Shield className="w-5 h-5" />
+                  <h3 className="text-xl font-bold text-white">Privacy Policy</h3>
+                </div>
+                <p className="text-xs text-gray-400 font-mono">Effective Date: November 2026</p>
+                <div className="text-sm text-gray-300 space-y-3 leading-relaxed">
+                  <p>
+                    At Nutcrackers, we strictly protect the privacy and confidentiality of our clients, partners, and visitors. 
+                    This Privacy Policy outlines how we treat information received through our official channels.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">1. Information Collection & Usage</h4>
+                  <p>
+                    We collect only the contact details (Name, Email, WhatsApp Phone Number, Project Scopes) submitted voluntarily 
+                    through our consultation quote forms or direct messaging. This information is utilized exclusively to respond to your project inquiries, deliver technical proposals, and execute contracted deliverables.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">2. Zero Third-Party Monetization</h4>
+                  <p>
+                    We never sell, rent, monetize, or distribute your personal or commercial contact information to third-party data brokers or advertising networks.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">3. Direct Data Inquiries</h4>
+                  <p>
+                    To request deletion or verification of any communications, contact our team directly at +92 312 5355078.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-purple-400">
+                  <FileText className="w-5 h-5" />
+                  <h3 className="text-xl font-bold text-white">Terms of Service</h3>
+                </div>
+                <p className="text-xs text-gray-400 font-mono">Effective Date: November 2026</p>
+                <div className="text-sm text-gray-300 space-y-3 leading-relaxed">
+                  <p>
+                    Welcome to Nutcrackers. By engaging our design, web engineering, mobile development, AI automation, 
+                    or media production services, you agree to these fundamental operational terms.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">1. Scope of Work & Deliverables</h4>
+                  <p>
+                    All project milestones, feature sets, technical architectures, and delivery timelines are defined in written milestone agreements before development begins.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">2. Intellectual Property & Code Ownership</h4>
+                  <p>
+                    Upon settlement of agreed milestone payments, the client retains 100% full ownership of all custom source code, design assets, and database schemas created specifically for their engagement.
+                  </p>
+                  <h4 className="font-semibold text-white pt-2">3. Confidentiality & Non-Disclosure</h4>
+                  <p>
+                    Nutcrackers maintains strict non-disclosure safeguards regarding client proprietary data, business logic, customer databases, and commercial trade secrets.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
-      {/* Admin Email Reply Dispatcher Modal */}
-      <AdminReplyModal
-        isOpen={isAdminReplyOpen}
-        onClose={() => setIsAdminReplyOpen(false)}
-      />
     </footer>
   );
 };

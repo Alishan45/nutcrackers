@@ -1,7 +1,13 @@
 import React from 'react';
 import { MessageSquare } from 'lucide-react';
 
-export const WhatsAppFloat: React.FC = () => {
+interface WhatsAppFloatProps {
+  isHidden?: boolean;
+}
+
+export const WhatsAppFloat: React.FC<WhatsAppFloatProps> = ({ isHidden = false }) => {
+  if (isHidden) return null;
+
   return (
     <aside 
       aria-label="Direct WhatsApp Contact"

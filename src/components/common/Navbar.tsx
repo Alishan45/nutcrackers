@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { NutcrackersLogo } from './NutcrackersLogo';
-import { Menu, X, ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
+import { Menu, X, ArrowUpRight, MessageSquare, BookOpen } from 'lucide-react';
 
 interface NavbarProps {
   onOpenQuote: () => void;
   isHidden?: boolean;
+  currentPath?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false, currentPath = '/' }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  const isHomePage = currentPath === '/' || currentPath === '';
 
   useEffect(() => {
     if (isHidden) {
@@ -21,6 +24,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      if (!isHomePage) return;
 
       const sections = ['home', 'services', 'showcase', 'demo', 'work', 'about', 'team', 'contact'];
       const scrollPosition = window.scrollY + 120;
@@ -40,17 +45,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const navLinks = [
-    { name: 'Home', href: '#home', id: 'home' },
-    { name: 'Services', href: '#services', id: 'services' },
-    { name: 'Showcase', href: '#showcase', id: 'showcase' },
-    { name: 'AI Demo', href: '#demo', id: 'demo' },
-    { name: 'Our Work', href: '#work', id: 'work' },
-    { name: 'About', href: '#about', id: 'about' },
-    { name: 'Leadership', href: '#team', id: 'team' },
-    { name: 'Contact', href: '#contact', id: 'contact' },
+    { name: 'Home', href: isHomePage ? '#home' : '/', id: 'home' },
+    { name: 'Services', href: isHomePage ? '#services' : '/#services', id: 'services' },
+    { name: 'Showcase', href: isHomePage ? '#showcase' : '/#showcase', id: 'showcase' },
+    { name: 'AI Demo', href: isHomePage ? '#demo' : '/#demo', id: 'demo' },
+    { name: 'Our Work', href: isHomePage ? '#work' : '/#work', id: 'work' },
+    { name: 'Leadership', href: isHomePage ? '#team' : '/#team', id: 'team' },
+    { name: 'Blog', href: '/blog', id: 'blog' },
+    { name: 'Contact', href: isHomePage ? '#contact' : '/#contact', id: 'contact' },
   ];
 
   return (
@@ -71,14 +76,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
         aria-label="Main Navigation"
       >
         {/* Brand Logo */}
-        <a href="#home" className="focus:outline-none shrink-0" aria-label="Nutcrackers Home">
+        <a href="/" className="focus:outline-none shrink-0" aria-label="Nutcrackers Home">
           <NutcrackersLogo size="sm" />
         </a>
 
         {/* Desktop Nav Links */}
         <div className="hidden lg:flex items-center gap-1 bg-white/[0.025] border border-white/[0.06] rounded-full px-3 py-1.5 backdrop-blur-md">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isBlogLink = link.id === 'blog';
+            const isActive = isBlogLink 
+              ? currentPath.startsWith('/blog') 
+              : isHomePage && activeSection === link.id;
+
             return (
               <a
                 key={link.id}
@@ -98,9 +107,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
           })}
         </div>
 
-        {/* Right Action Area - Unified across Mobile, Tablet & Desktop */}
+        {/* Right Action Area */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Direct WhatsApp Callout - Tablet & Desktop */}
+          {/* Direct WhatsApp Callout */}
           <a
             href="https://wa.me/923125355078?text=Hello%20Nutcrackers%2C%20I%20am%20interested%20in%20your%20services."
             target="_blank"
@@ -113,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
             <span className="md:hidden">WhatsApp</span>
           </a>
 
-          {/* Quick Quote Action Button - Optimized for Mobile & Desktop */}
+          {/* Quick Quote Action Button */}
           <button
             onClick={onOpenQuote}
             className="group relative inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold rounded-full overflow-hidden text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] hover:bg-right transition-all duration-300 shadow-[0_0_16px_rgba(168,85,247,0.3)] hover:shadow-[0_0_24px_rgba(168,85,247,0.5)] border border-purple-400/30 cursor-pointer"
@@ -143,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuote, isHidden = false })
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  activeSection === link.id
+                  (link.id === 'blog' && currentPath.startsWith('/blog')) || (isHomePage && activeSection === link.id)
                     ? 'text-white bg-white/10 font-semibold'
                     : 'text-gray-300 hover:text-white hover:bg-white/[0.04]'
                 }`}

@@ -1,9 +1,9 @@
-# Nutcrackers - Modern AI & Digital Solutions Agency
-# https://nutcrackers.vercel.app
+# Nutcrackers - AI & Digital Solutions Agency
+# Canonical Domain: https://nutcrackers.tech
 
 User-agent: *
 Allow: /
 Disallow: /api/
 
-# Sitemaps
-Sitemap: https://nutcrackers.vercel.app/sitemap.xml
+# Canonical Sitemaps
+Sitemap: https://nutcrackers.tech/sitemap.xml
