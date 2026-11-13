@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { NutcrackersLogo } from './NutcrackersLogo';
-import { AdminReplyModal } from './AdminReplyModal';
 import { 
   Phone, 
-  Mail, 
   Globe, 
   MessageSquare, 
   ArrowUp, 
@@ -18,7 +16,6 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
   const [modalType, setModalType] = useState<'privacy' | 'terms' | null>(null);
-  const [isAdminReplyOpen, setIsAdminReplyOpen] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -188,13 +185,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
 
           <div className="flex items-center gap-6">
             <button
-              onClick={() => setIsAdminReplyOpen(true)}
-              className="text-purple-400 hover:text-purple-300 font-mono text-[11px] transition-colors cursor-pointer flex items-center gap-1.5"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Admin Dispatcher</span>
-            </button>
-            <button
               onClick={() => setModalType('privacy')}
               className="hover:text-gray-300 transition-colors cursor-pointer"
             >
@@ -216,11 +206,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService }) => {
           </div>
         </div>
       </div>
-
-      {/* Admin Reply Direct Modal */}
-      {isAdminReplyOpen && (
-        <AdminReplyModal isOpen={isAdminReplyOpen} onClose={() => setIsAdminReplyOpen(false)} />
-      )}
 
       {/* Privacy Policy & Terms Modal */}
       {modalType && (
